@@ -9,7 +9,7 @@
 <body>
     <h1>Test bed</h1>
 
-    <form action="" method="GET">
+    <form action="" method="GET" id="testForm">
         <div class="form-row">
             <label for="textInput">Standard text input</label>
             <input type="text" id="textInput" />
@@ -38,5 +38,12 @@
             Submit form
         </button>
     </form>
+    <script src="./scripts/main.js"></script>
+
+    <script>
+        formValidator.addForm({
+            form: document.querySelector('#testForm')
+        });
+    </script>
 </body>
 </html>
