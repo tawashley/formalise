@@ -12,7 +12,7 @@
     }
 
     function submitHandler(event) {
-        console.log('hits submitHanlder');
+        console.log('hits submitHandler');
         event.preventDefault();
     }
 
