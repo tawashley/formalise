@@ -29,8 +29,22 @@
     }
 
     function submitHandler(event) {
-        console.log('hits submitHandler');
+        var validationMap = [];
+        var formIsValid;
+
         event.preventDefault();
+
+        validationMap = _inputList.map(function(input) {
+            return input.element.validity.valid;
+        });
+
+        formIsValid = validationMap.every(function(inputValidStatus) { return inputValidStatus === true; });
+
+        if(formIsValid) {
+            console.log('form is valid 👍');
+        } else {
+            console.log('form is invalid 👎');
+        }
     }
 
     function addNoValidateToFor() {
