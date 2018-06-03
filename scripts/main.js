@@ -1,27 +1,18 @@
 (function formValidator(window, undefined) {
+    var forms = [];
+
     function addForm(config) {
-        addNoValidateToFor(config.form);
-        getAllInputsFromTheForm(config.form)
-        attachToSubmitEvent(config.form);
+        forms.push(formManager(config));
     }
 
-    function getAllInputsFromTheForm(elemForm) {};
-
-    function attachToSubmitEvent(elemForm) {
-        elemForm.addEventListener('submit', submitHandler, false);
-    }
-
-    function submitHandler(event) {
-        console.log('hits submitHandler');
-        event.preventDefault();
-    }
-
-    function addNoValidateToFor(elemForm) {
-        elemForm.setAttribute('novalidate', true);
+    function getForms() {
+        console.log('forms', forms);
+        return forms;
     }
 
     window.formValidator = {
-        addForm
+        addForm,
+        getForms
     }
 
 })(window);
