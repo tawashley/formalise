@@ -17,7 +17,7 @@
     }
 
     function getAllInputsFromTheForm() {
-        var inputs = [..._config.form.querySelectorAll('input')];
+        var inputs = [].slice.call(_config.form.querySelectorAll('input'));
 
         inputs.forEach(function(input) {
             _inputList.push(inputManager(input));

@@ -11,8 +11,8 @@
     }
 
     window.formValidator = {
-        addForm,
-        getForms
+        addForm: addForm,
+        getForms: getForms
     }
 
 })(window);
