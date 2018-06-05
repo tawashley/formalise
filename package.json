@@ -8,5 +8,20 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
+    "argv": "0.0.2",
+    "babel": "^6.23.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-better-rollup": "^3.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify-es": "^1.0.1",
+    "rollup": "^0.57.1",
+    "rollup-plugin-node-resolve": "^3.3.0"
+  }
 }
