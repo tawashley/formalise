@@ -2,7 +2,14 @@ import formManager from './form';
 
 let forms = [];
 
+let defaultConfig = {
+    form: null,
+    validateOnFocusLoss: false
+}
+
 function addForm(config) {
+    config = Object.assign(defaultConfig, config);
+
     forms.push(formManager(config));
 }
 

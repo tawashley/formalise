@@ -7,7 +7,7 @@ function getAllInputsFromTheForm() {
     let inputs = [].slice.call(_config.form.querySelectorAll('input'));
 
     inputs.forEach(function (input) {
-        _inputList.push(inputManager(input));
+        _inputList.push(inputManager(input, _config));
     });
 };
 
@@ -36,14 +36,14 @@ function submitHandler(event) {
     }
 }
 
-function addNoValidateToFor() {
+function addNoValidateToForm() {
     _config.form.setAttribute('novalidate', true);
 }
 
 export default function formManager(config) {
     _config = config;
 
-    addNoValidateToFor();
+    addNoValidateToForm();
     getAllInputsFromTheForm()
     attachToSubmitEvent();
 
