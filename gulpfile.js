@@ -31,17 +31,12 @@ function getBabelBrowsersConfig(isLegacy = false) {
 
     if(isLegacy === true) {
         browsersList.push(
-            '> 1%',
-            'last 2 versions',
-            'Firefox ESR'
-        );
-    } else {
-        browsersList.push(
             'Chrome >= 60',
             'Safari >= 10.1',
             'iOS >= 10.3',
             'Firefox >= 54',
-            'Edge >= 15'
+            'Edge >= 15',
+            'IE 10'
         );
     }
 
