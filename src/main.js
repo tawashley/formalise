@@ -1,18 +1,17 @@
-(function formValidator(window, undefined) {
-    var forms = [];
+import formManager from './form';
 
-    function addForm(config) {
-        forms.push(formManager(config));
-    }
+let forms = [];
 
-    function getForms() {
-        console.log('forms', forms);
-        return forms;
-    }
+function addForm(config) {
+    forms.push(formManager(config));
+}
 
-    window.formValidator = {
-        addForm: addForm,
-        getForms: getForms
-    }
+function getForms() {
+    console.log('forms', forms);
+    return forms;
+}
 
-})(window);
+window.formValidator = {
+    addForm,
+    getForms
+}

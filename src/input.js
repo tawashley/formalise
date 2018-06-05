@@ -1,23 +1,19 @@
-(function() {
-    var _elemInput;
+let _elemInput;
 
-    function inputManager(elemInput) {
-        _elemInput = elemInput;
+function isInputRequired() {
+    return _elemInput.hasAttribute('required');
+}
 
-        return {
-            element: elemInput,
-            type: getInputType(),
-            isRequired: isInputRequired()
-        };
-    }
+function getInputType() {
+    return _elemInput.getAttribute('type');
+}
 
-    function isInputRequired() {
-        return _elemInput.hasAttribute('required');
-    }
+export default function inputManager(elemInput) {
+    _elemInput = elemInput;
 
-    function getInputType() {
-        return _elemInput.getAttribute('type');
-    }
-
-    window.inputManager = inputManager;
-})()
+    return {
+        element: elemInput,
+        type: getInputType(),
+        isRequired: isInputRequired()
+    };
+}

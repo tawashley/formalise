@@ -77,7 +77,7 @@ gulp.task('build', function() {
         .pipe(babel(getBabelConfig()))
         .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
-        .pipe(gulp.dest('./dist/scripts'))
+        .pipe(gulp.dest('./dist'))
 });
 
 gulp.task('default', gulp.series('clean', 'build'))
