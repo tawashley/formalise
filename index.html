@@ -43,7 +43,8 @@
     <script>
         formValidator.addForm({
             form: document.querySelector('#testForm'),
-            validateOnFocusLoss: true
+            validateOnFocusLoss: true,
+            fieldValidateHandler: function(){};
         });
 
         formValidator.getForms();

@@ -1,4 +1,5 @@
 let _elemInput;
+let _formConfig;
 
 function isInputRequired() {
     return _elemInput.hasAttribute('required');
@@ -13,17 +14,15 @@ function bindInputBlurEvent() {
 }
 
 function blurHandler(event) {
-    var inputIsValid = event.target.validity.valid;
+    var inputElement = event.target;
+    var inputIsValid = inputElement.validity.valid;
 
-    if(inputIsValid === true) {
-        console.log('input is valid!')
-    } else {
-        console.log('input is invalid, show error message');
-    }
+    _formConfig.fieldValidateHandler(inputElement, inputIsValid);
 }
 
 export default function inputManager(elemInput, formConfig) {
     _elemInput = elemInput;
+    _formConfig = formConfig;
 
     if(formConfig.validateOnFocusLoss === true) {
         bindInputBlurEvent();
