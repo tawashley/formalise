@@ -5,7 +5,8 @@ let forms = [];
 let defaultConfig = {
     form: null,
     validateOnFocusLoss: false,
-    fieldValidateHandler: function() {}
+    fieldValidateHandler: function() {},
+    formSubmitHandler: function() {}
 }
 
 function addForm(config) {

@@ -29,11 +29,7 @@ function submitHandler(event) {
         return inputValidStatus === true;
     });
 
-    if (formIsValid) {
-        console.log('form is valid 👍');
-    } else {
-        console.log('form is invalid 👎');
-    }
+    _config.formSubmitHandler(formIsValid, _inputList);
 }
 
 function addNoValidateToForm() {
