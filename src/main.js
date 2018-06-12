@@ -1,3 +1,6 @@
+import './polyfill.objectAssign';
+import './polyfill.validityState';
+
 import formManager from './form';
 
 let forms = [];
