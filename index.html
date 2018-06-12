@@ -44,7 +44,7 @@
         formValidator.addForm({
             form: document.querySelector('#testForm'),
             validateOnFocusLoss: true,
-            fieldValidateHandler: function(){}
+            onInputBlur: function(){}
         });
 
         formValidator.getForms();
