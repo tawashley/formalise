@@ -7,7 +7,9 @@ function getAllInputsFromTheForm() {
     let inputs = [].slice.call(_config.form.querySelectorAll('input'));
 
     inputs.forEach(function (input) {
-        _inputList.push(inputManager(input, _config));
+        if(input.type !== "hidden") {
+            _inputList.push(inputManager(input, _config));
+        }
     });
 };
 
