@@ -15,9 +15,10 @@ function bindInputBlurEvent() {
 
 function blurHandler(event) {
     var inputElement = event.target;
-    var inputIsValid = inputElement.validity.valid;
+    var validityStatus = inputElement.validity;
+    var inputIsValid = validityStatus.valid;
 
-    _formConfig.onInputBlur(inputElement, inputIsValid);
+    _formConfig.onInputBlur(inputElement, inputIsValid, validityStatus);
 }
 
 export default function inputManager(elemInput, formConfig) {
