@@ -9,6 +9,8 @@ let _formConfig;
 
 const cssClassPristine = 'is-pristine';
 const cssClassDirty = 'is-dirty';
+const cssClassValid = 'is-valid';
+const cssClassInvalid = 'is-invalid';
 
 function isInputRequired() {
     return _elemInput.hasAttribute('required');
@@ -30,6 +32,14 @@ function blurHandler(event) {
     if(hasClass(inputElement, cssClassPristine)) {
         removeClass(inputElement, cssClassPristine);
         addClass(inputElement, cssClassDirty);
+    }
+
+    if(hasClass(inputElement, cssClassDirty) && inputIsValid) {
+        removeClass(inputElement, cssClassInvalid);
+        addClass(inputElement, cssClassValid);
+    } else {
+        removeClass(inputElement, cssClassValid);
+        addClass(inputElement, cssClassInvalid);
     }
 
     _formConfig.onInputBlur(inputElement, inputIsValid, validityStatus);
