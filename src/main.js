@@ -7,7 +7,7 @@ let forms = [];
 
 let defaultConfig = {
     form: null,
-    validateOnFocusLoss: false,
+    validateOnFocusLoss: true,
     onInputBlur: function() {},
     formSubmitHandler: function() {}
 }

@@ -24,28 +24,44 @@ function bindInputBlurEvent() {
     _elemInput.addEventListener('blur', blurHandler, false);
 }
 
-function blurHandler(event) {
-    var inputElement = event.target;
-    var validityStatus = inputElement.validity;
-    var inputIsValid = validityStatus.valid;
-
-    if(hasClass(inputElement, cssClassPristine)) {
-        removeClass(inputElement, cssClassPristine);
-        addClass(inputElement, cssClassDirty);
+function setInputAsDirty(elemInput) {
+    if(hasClass(elemInput, cssClassPristine)) {
+        removeClass(elemInput, cssClassPristine);
+        addClass(elemInput, cssClassDirty);
     }
-
-    if(hasClass(inputElement, cssClassDirty) && inputIsValid) {
-        removeClass(inputElement, cssClassInvalid);
-        addClass(inputElement, cssClassValid);
-    } else {
-        removeClass(inputElement, cssClassValid);
-        addClass(inputElement, cssClassInvalid);
-    }
-
-    _formConfig.onInputBlur(inputElement, inputIsValid, validityStatus);
 }
 
-function setInitialInputClass() {
+function setInputValidityStatus(elemInput) {
+    if(hasClass(elemInput, cssClassDirty) && isInputValid(elemInput)) {
+        removeClass(elemInput, cssClassInvalid);
+        addClass(elemInput, cssClassValid);
+    } else {
+        removeClass(elemInput, cssClassValid);
+        addClass(elemInput, cssClassInvalid);
+    }
+}
+
+function isInputValid(elemInput) {
+    return elemInput.validity.valid;
+}
+
+function inputValidityStatus(elemInput) {
+    return elemInput.validity;
+}
+
+function blurHandler(event) {
+    var inputElement = event.target;
+
+    if(hasClass(inputElement, cssClassPristine)) {
+        setInputAsDirty(inputElement);
+    }
+
+    setInputValidityStatus(inputElement);
+
+    _formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
+}
+
+function setInputStatusClass() {
     addClass(_elemInput, cssClassPristine);
 }
 
@@ -53,7 +69,7 @@ export default function inputManager(elemInput, formConfig) {
     _elemInput = elemInput;
     _formConfig = formConfig;
 
-    setInitialInputClass();
+    setInputStatusClass();
 
     if(formConfig.validateOnFocusLoss === true) {
         bindInputBlurEvent();
