@@ -32,6 +32,10 @@ function submitHandler(event) {
     });
 
     _config.onFormSubmit(formIsValid, _inputList);
+
+    if(formIsValid && _config.submitFormWhenValid) {
+        _config.form.submit();
+    }
 }
 
 function addNoValidateToForm() {
