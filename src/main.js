@@ -9,7 +9,7 @@ let defaultConfig = {
     form: null,
     validateOnFocusLoss: true,
     onInputBlur: function() {},
-    formSubmitHandler: function() {}
+    onFormSubmit: function() {}
 }
 
 function addForm(config) {

@@ -31,7 +31,7 @@ function submitHandler(event) {
         return inputValidStatus === true;
     });
 
-    _config.formSubmitHandler(formIsValid, _inputList);
+    _config.onFormSubmit(formIsValid, _inputList);
 }
 
 function addNoValidateToForm() {
