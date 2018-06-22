@@ -1,58 +1,59 @@
 import inputManager from './input';
 
-let _config;
-let _inputList = [];
-
-function getAllInputsFromTheForm() {
-    let inputs = [].slice.call(_config.form.querySelectorAll('input'));
-
-    inputs.forEach(function (input) {
-        if(input.type !== "hidden") {
-            _inputList.push(inputManager(input, _config));
-        }
-    });
-};
-
-function attachToSubmitEvent() {
-    _config.form.addEventListener('submit', submitHandler, false);
-}
-
-function submitHandler(event) {
-    let validationMap = [];
-    let formIsValid;
-
-    event.preventDefault();
-
-    validationMap = _inputList.map(function (input) {
-        return input.element.validity.valid;
-    });
-
-    formIsValid = validationMap.every(function (inputValidStatus) {
-        return inputValidStatus === true;
-    });
-
-    _inputList.forEach((input) => input.validateInputStatus());
-
-    _config.onFormSubmit(formIsValid, _inputList);
-
-    if(formIsValid && _config.submitFormWhenValid) {
-        _config.form.submit();
-    }
-}
-
-function addNoValidateToForm() {
-    _config.form.setAttribute('novalidate', true);
-}
-
 export default function formManager(config) {
-    _config = config;
+    let inputList = [];
 
-    addNoValidateToForm();
-    getAllInputsFromTheForm()
-    attachToSubmitEvent();
+    function getAllInputsFromTheForm() {
+        let inputs = [].slice.call(config.form.querySelectorAll('input'));
+
+        inputs.forEach(function (input) {
+            if (input.type !== "hidden") {
+                inputList.push(inputManager(input, config));
+            }
+        });
+    };
+
+    function attachToSubmitEvent() {
+        config.form.addEventListener('submit', submitHandler, false);
+    }
+
+    function submitHandler(event) {
+        let validationMap = [];
+        let formIsValid;
+
+        event.preventDefault();
+
+        validationMap = inputList.map(function (input) {
+            return input.element.validity.valid;
+        });
+
+        formIsValid = validationMap.every(function (inputValidStatus) {
+            return inputValidStatus === true;
+        });
+
+        inputList.forEach((input) => input.validateInputStatus());
+
+        config.onFormSubmit(formIsValid, inputList);
+
+        if (formIsValid && config.submitFormWhenValid) {
+            config.form.submit();
+        }
+    }
+
+    function addNoValidateToForm() {
+        config.form.setAttribute('novalidate', true);
+    }
+
+    function init() {
+        addNoValidateToForm();
+        getAllInputsFromTheForm()
+        attachToSubmitEvent();
+    }
+
+    init();
 
     return {
-        form: _config.form,
-        inputs: _inputList
+        form: config.form,
+        inputs: inputList
     };
 }
