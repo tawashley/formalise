@@ -11,6 +11,8 @@ function getAllInputsFromTheForm() {
             _inputList.push(inputManager(input, _config));
         }
     });
+
+    console.log(_inputList);
 };
 
 function attachToSubmitEvent() {
