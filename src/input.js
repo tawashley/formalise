@@ -50,7 +50,7 @@ function inputValidityStatus(elemInput) {
 }
 
 function blurHandler(event) {
-    var inputElement = event.target;
+    var inputElement = event.currentTarget;
 
     if(hasClass(inputElement, cssClassPristine)) {
         setInputAsDirty(inputElement);
@@ -76,8 +76,6 @@ export default function inputManager(elemInput, formConfig) {
     }
 
     return {
-        element: elemInput,
-        type: getInputType(),
-        isRequired: isInputRequired()
+        element: elemInput
     };
 }
