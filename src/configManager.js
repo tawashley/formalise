@@ -3,7 +3,8 @@ let defaultConfig = Object.freeze({
     validateOnFocusLoss: true,
     submitFormWhenValid: true,
     onInputBlur: function() {},
-    onFormSubmit: function() {}
+    onFormSubmit: function() {},
+    inputParentSelector: null
 });
 
 export default function configManager(config) {

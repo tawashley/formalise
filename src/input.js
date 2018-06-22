@@ -1,7 +1,8 @@
 import {
     addClass,
     removeClass,
-    hasClass
+    hasClass,
+    findParentElement
 } from './DOMUtils';
 
 export default function inputManager(inputElement, formConfig) {
@@ -19,13 +20,13 @@ export default function inputManager(inputElement, formConfig) {
         addClass(inputElement, cssClassDirty);
     }
 
-    function setInputValidityStatus() {
-        if (hasClass(inputElement, cssClassDirty) && isInputValid()) {
-            removeClass(inputElement, cssClassInvalid);
-            addClass(inputElement, cssClassValid);
+    function setInputValidityStatus(element = inputElement) {
+        if (isInputValid()) {
+            removeClass(element, cssClassInvalid);
+            addClass(element, cssClassValid);
         } else {
-            removeClass(inputElement, cssClassValid);
-            addClass(inputElement, cssClassInvalid);
+            removeClass(element, cssClassValid);
+            addClass(element, cssClassInvalid);
         }
     }
 
@@ -45,11 +46,17 @@ export default function inputManager(inputElement, formConfig) {
 
     function validateInputStatus() {
         if (hasClass(inputElement, cssClassPristine)) {
-            setInputAsDirty(inputElement);
+            setInputAsDirty();
         }
 
-        setInputValidityStatus(inputElement);
-    }
+        setInputValidityStatus();
+
+        if(formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
+            var inputRowElement = findParentElement(inputElement, formConfig.inputParentSelector);
+
+            setInputValidityStatus(inputRowElement[0]);
+        }
+     }
 
     function setInputStatusClass() {
         addClass(inputElement, cssClassPristine);
