@@ -12,14 +12,6 @@ const cssClassDirty = 'is-dirty';
 const cssClassValid = 'is-valid';
 const cssClassInvalid = 'is-invalid';
 
-function isInputRequired() {
-    return _elemInput.hasAttribute('required');
-}
-
-function getInputType() {
-    return _elemInput.getAttribute('type');
-}
-
 function bindInputBlurEvent() {
     _elemInput.addEventListener('blur', blurHandler, false);
 }
