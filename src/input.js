@@ -68,6 +68,6 @@ export default function inputManager(elemInput, formConfig) {
     }
 
     return {
-        element: elemInput
+        element: _elemInput
     };
 }
