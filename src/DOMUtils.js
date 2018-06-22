@@ -51,20 +51,17 @@ export function removeElement(element) {
     element.parentNode.removeChild(element);
 }
 
-export function findParentElement(element, selector) {
-    var elements = [];
-    var elem = element;
-    var ishaveselector = selector !== undefined;
+export function getClosestElement(element, selector) {
+    if(element.closest) {
+        return element.closest(selector);
+    } else {
+        if (!document.documentElement.contains(element)) return null;
+        
+        do {
+            if (element.matches(selector)) return element;
+            element = element.parentElement || element.parentNode;
+        } while (element !== null && element.nodeType === 1); 
 
-    while ((elem = elem.parentElement) !== null) {
-        if (elem.nodeType !== Node.ELEMENT_NODE) {
-            continue;
-        }
-
-        if (!ishaveselector || elem.matches(selector)) {
-            elements.push(elem);
-        }
+        return null;
     }
-
-    return elements;
 }

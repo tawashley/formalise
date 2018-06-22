@@ -2,7 +2,7 @@ import {
     addClass,
     removeClass,
     hasClass,
-    findParentElement
+    getClosestElement
 } from './DOMUtils';
 
 export default function inputManager(inputElement, formConfig) {
@@ -52,9 +52,9 @@ export default function inputManager(inputElement, formConfig) {
         setInputValidityStatus();
 
         if(formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
-            var inputRowElement = findParentElement(inputElement, formConfig.inputParentSelector);
+            var inputRowElement = getClosestElement(inputElement, formConfig.inputParentSelector);
 
-            setInputValidityStatus(inputRowElement[0]);
+            setInputValidityStatus(inputRowElement);
         }
      }
 
