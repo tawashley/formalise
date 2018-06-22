@@ -2,19 +2,12 @@ import './polyfill.objectAssign';
 import './polyfill.validityState';
 
 import formManager from './form';
+import configManager from './configManager';
 
 let forms = [];
 
-let defaultConfig = {
-    form: null,
-    validateOnFocusLoss: true,
-    submitFormWhenValid: true,
-    onInputBlur: function() {},
-    onFormSubmit: function() {}
-}
-
 function addForm(config) {
-    config = Object.assign(defaultConfig, config);
+    config = configManager(config);
 
     forms.push(formManager(config));
 }
