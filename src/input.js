@@ -4,70 +4,69 @@ import {
     hasClass
 } from './DOMUtils';
 
-export default function inputManager(elemInput, formConfig) {
-    let _elemInput;
-    let _formConfig;
-
+export default function inputManager(inputElement, formConfig) {
     const cssClassPristine = 'is-pristine';
     const cssClassDirty = 'is-dirty';
     const cssClassValid = 'is-valid';
     const cssClassInvalid = 'is-invalid';
 
     function bindInputBlurEvent() {
-        _elemInput.addEventListener('blur', blurHandler, false);
+        inputElement.addEventListener('blur', blurHandler, false);
     }
 
-    function setInputAsDirty(elemInput) {
-        if (hasClass(elemInput, cssClassPristine)) {
-            removeClass(elemInput, cssClassPristine);
-            addClass(elemInput, cssClassDirty);
-        }
+    function setInputAsDirty() {
+        removeClass(inputElement, cssClassPristine);
+        addClass(inputElement, cssClassDirty);
     }
 
-    function setInputValidityStatus(elemInput) {
-        if (hasClass(elemInput, cssClassDirty) && isInputValid(elemInput)) {
-            removeClass(elemInput, cssClassInvalid);
-            addClass(elemInput, cssClassValid);
+    function setInputValidityStatus() {
+        if (hasClass(inputElement, cssClassDirty) && isInputValid()) {
+            removeClass(inputElement, cssClassInvalid);
+            addClass(inputElement, cssClassValid);
         } else {
-            removeClass(elemInput, cssClassValid);
-            addClass(elemInput, cssClassInvalid);
+            removeClass(inputElement, cssClassValid);
+            addClass(inputElement, cssClassInvalid);
         }
     }
 
-    function isInputValid(elemInput) {
-        return elemInput.validity.valid;
+    function isInputValid() {
+        return inputElement.validity.valid;
     }
 
-    function inputValidityStatus(elemInput) {
-        return elemInput.validity;
+    function inputValidityStatus() {
+        return inputElement.validity;
     }
 
-    function blurHandler(event) {
-        var inputElement = event.currentTarget;
+    function blurHandler() {
+        validateInputStatus();
 
+        formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
+    }
+
+    function validateInputStatus() {
         if (hasClass(inputElement, cssClassPristine)) {
             setInputAsDirty(inputElement);
         }
 
         setInputValidityStatus(inputElement);
-
-        _formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
     }
 
     function setInputStatusClass() {
-        addClass(_elemInput, cssClassPristine);
+        addClass(inputElement, cssClassPristine);
     }
 
-    _elemInput = elemInput;
-    _formConfig = formConfig;
+    function init() {
+        setInputStatusClass();
 
-    setInputStatusClass();
-
-    if (formConfig.validateOnFocusLoss === true) {
-        bindInputBlurEvent();
+        if (formConfig.validateOnFocusLoss === true) {
+            bindInputBlurEvent();
+        }
     }
+
+    init();
 
     return {
-        element: _elemInput
+        element: inputElement,
+        validateInputStatus,
     };
 }

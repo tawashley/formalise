@@ -11,8 +11,6 @@ function getAllInputsFromTheForm() {
             _inputList.push(inputManager(input, _config));
         }
     });
-
-    console.log(_inputList);
 };
 
 function attachToSubmitEvent() {
@@ -32,6 +30,8 @@ function submitHandler(event) {
     formIsValid = validationMap.every(function (inputValidStatus) {
         return inputValidStatus === true;
     });
+
+    _inputList.forEach((input) => input.validateInputStatus());
 
     _config.onFormSubmit(formIsValid, _inputList);
 
