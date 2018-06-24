@@ -31,7 +31,7 @@ export default function formManager(config) {
             return inputValidStatus === true;
         });
 
-        inputList.forEach((input) => input.validateInputStatus());
+        inputList.forEach((input) => input.validate());
 
         config.onFormSubmit(formIsValid, inputList);
 

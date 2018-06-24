@@ -74,6 +74,6 @@ export default function inputManager(inputElement, formConfig) {
 
     return {
         element: inputElement,
-        validateInputStatus,
+        validate: validateInputStatus,
     };
 }
