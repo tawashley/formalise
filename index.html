@@ -17,6 +17,7 @@
         <div class="form-row">
             <label for="requiredTextInput">Requires input</label>
             <input type="text" id="requiredTextInput" required/>
+            <p class="form-row__validation-message">An input value is required</p>
         </div>
         <!-- <div class="form-row">
             <label for="textInputMinLength">Number Input</label>
@@ -39,6 +40,16 @@
         </button>
     </form>
     <script src="./dist/main.js"></script>
+
+    <style>
+        .form-row__validation-message {
+            display: none;
+        }
+
+        .form-row.is-invalid .form-row__validation-message  {
+            display: block;
+        }
+    </style>
 
     <script>
         formValidator.addForm({
