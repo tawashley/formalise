@@ -19,22 +19,18 @@
             <input type="text" id="requiredTextInput" required/>
             <p class="form-row__validation-message">An input value is required</p>
         </div>
-        <!-- <div class="form-row">
-            <label for="textInputMinLength">Number Input</label>
-            <input type="number" id="textInputMinLength"/>
-        </div>
         <div class="form-row">
             <label for="numberInput">Number Input</label>
             <input type="number" id="numberInput"/>
         </div>
         <div class="form-row">
+            <label for="textInputMinLength">Number Input (min-length)</label>
+            <input type="number" minlength="4" id="textInputMinLength"/>
+        </div>
+        <div class="form-row">
             <label for="emailInput">E-mail</label>
             <input type="email" id="emailInput"/>
         </div>
-        <div class="form-row">
-            <label for="">Date (need to at see if can work with datapickers?)</label>
-            <input type="text" id=""/>
-        </div> -->
         <button type="submit">
             Submit form
         </button>
@@ -48,6 +44,14 @@
 
         .form-row.is-invalid .form-row__validation-message  {
             display: block;
+        }
+
+        input.is-invalid {
+            border: 2px solid #f00;
+        }
+
+        input.is-valid {
+            border: 2px solid #10b700;
         }
     </style>
 
