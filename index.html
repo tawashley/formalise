@@ -43,7 +43,10 @@
     <script>
         formValidator.addForm({
             form: document.querySelector('#testForm'),
-            inputParentSelector: '.form-row'
+            inputParentSelector: '.form-row',
+            validateOn: {
+                blur: true
+            }
         });
     </script>
 </body>

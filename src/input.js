@@ -65,7 +65,7 @@ export default function inputManager(inputElement, formConfig) {
     function init() {
         setInputStatusClass();
 
-        if (formConfig.validateOnFocusLoss === true) {
+        if (formConfig.validateOn.blur) {
             bindInputBlurEvent();
         }
     }

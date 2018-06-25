@@ -1,6 +1,9 @@
 let defaultConfig = Object.freeze({
     form: null,
-    validateOnFocusLoss: true,
+    validateOn: {
+        blur: true,
+        change: false
+    },
     submitFormWhenValid: false,
     onInputBlur: function() {},
     onFormSubmit: function() {},
