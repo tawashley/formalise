@@ -1,8 +1,7 @@
 let defaultConfig = Object.freeze({
     form: null,
     validateOn: {
-        blur: true,
-        change: false
+        blur: true
     },
     submitFormWhenValid: false,
     onInputBlur: function() {},
