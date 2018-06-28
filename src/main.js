@@ -12,6 +12,6 @@ function addForm(config) {
     forms.push(formManager(config));
 }
 
-window.formValidator = {
+window.formalise = {
     addForm
 }
