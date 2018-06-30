@@ -35,14 +35,14 @@ The above classes can be hooked into and used to style valid, invalid inputs.
 
 ```js
 formalise.addForm({
-    form,
+    form: null,
     validateOn: {
-        blur
+        blur: true
     },
-    submitFormWhenValid,
-    onInputBlur,
-    onFormSubmit,
-    inputParentSelector
+    submitFormWhenValid: false,
+    onInputBlur: function() {},
+    onFormSubmit: function() {},
+    inputParentSelector: null
 });
 ```
 
