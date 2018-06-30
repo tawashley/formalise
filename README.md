@@ -5,17 +5,46 @@
 ## Usage
 
 ```js
-// Basic usage
-
 formalise.addForm({
     form: document.querySelector('[data-formalise-example]'),
 });
-
 ```
+
+
 
 This will add the form element `[data-formalise-example]` to use formalise validation.
 
+## How it works
+
+formalise itself doesn't do the heavy lifting in terms of validate, rather hooking into native browser APIs whilst adding a few quality of life features.
+
+Once `.addForm` is called, the following occurs:
+
+* `novalidate` attribute is added to the form
+* The class `is-pristine` is added to all inputs
+
+Depending in the config, when either the input or form is validated the following occurs:
+
+* The class `is-pristine` is replaced with `is-dirty` if it's the first time checking the status of an input
+* The class `is-valid` or `is-invalid` is added to the input depending on it's validity status
+* If `inputParentSelector` config value is provided, the parent element is found and the class `is-valid` or `is-invalid` is added to the element.
+
+The above classes can be hooked into and used to style valid, invalid inputs.
+
 ## Config
+
+```js
+formalise.addForm({
+    form,
+    validateOn: {
+        blur
+    },
+    submitFormWhenValid,
+    onInputBlur,
+    onFormSubmit,
+    inputParentSelector
+});
+```
 
 ### form
 Type: `HTMLFormElement`<br>
