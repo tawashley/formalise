@@ -1,68 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Form Validation Test bed</title>
+    <title>Formalise examples</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="dist/main.js"></script>
 </head>
+
 <body>
-    <h1>Test bed</h1>
-
-    <form action="" method="GET" id="testForm">
-        <div class="form-row">
-            <label for="textInput">Standard text input</label>
-            <input type="text" id="textInput" />
+    <section class="wrapper">
+        <h1 class="wrapper__heading">formalise examples</h1>
+        <div class="form-wrapper">
+            <h2 class="form-wrapper__heading">
+                Simple usage
+            </h2>
+            <div class="form-wrapper__form">
+                <form action="/" method="GET" data-example-1>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-ui-1">Input</label>
+                        <input type="text" class="form-row__input" id="example-ui-1" />
+                    </div>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-ui-2">Input - Required</label>
+                        <input type="text" class="form-row__input" id="example-ui-2" required />
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <script class="form-wrapper__script">
+                formalise.addForm({
+                    form: document.querySelector('[data-example-1]')
+                });
+            </script>
         </div>
-        <div class="form-row">
-            <label for="requiredTextInput">Requires input</label>
-            <input type="text" id="requiredTextInput" required/>
-            <p class="form-row__validation-message">An input value is required</p>
+        <div class="form-wrapper">
+            <h2 class="form-wrapper__heading">
+                Form Handlers
+            </h2>
+            <div class="form-wrapper__form">
+                <form action="/" method="GET" data-example-2>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-handler-1">Input</label>
+                        <input type="text" class="form-row__input" id="example-handler-1" />
+                    </div>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-handlers-2">Input - Required</label>
+                        <input type="text" class="form-row__input" id="example-handlers-2" required />
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <script class="form-wrapper__script">
+                formalise.addForm({
+                    form: document.querySelector('[data-example-2]'),
+                    onInputBlur: function (inputElement, isInputValid, inputValidity) {
+                        console.log('element ->', inputElement);
+                        console.log('is input valid ->', isInputValid);
+                        console.log('input validity (same as HTMLInputElement.validity) ->s', inputValidity)
+                    },
+                    onFormSubmit: function (isFormValid, inputList) {
+                        console.log('is form valid ->', isFormValid);
+                        console.log('form input list ->', inputList);
+                    }
+                });
+            </script>
         </div>
-        <div class="form-row">
-            <label for="numberInput">Number Input</label>
-            <input type="number" id="numberInput"/>
+        <div class="form-wrapper">
+            <h2 class="form-wrapper__heading">
+                Validate on submit only
+            </h2>
+            <div class="form-wrapper__form">
+                <form action="/" method="GET" data-example-3>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-handler-1">Input</label>
+                        <input type="text" class="form-row__input" id="example-handler-1" />
+                    </div>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-handlers-2">Input - Required</label>
+                        <input type="text" class="form-row__input" id="example-handlers-2" required />
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <script class="form-wrapper__script">
+                formalise.addForm({
+                    form: document.querySelector('[data-example-3]'),
+                    validateOn: {
+                        blur: false
+                    },
+                    onFormSubmit: function (isFormValid, inputList) {
+                        console.log('is form valid ->', isFormValid);
+                        console.log('form input list ->', inputList);
+                    }
+                });
+            </script>
         </div>
-        <div class="form-row">
-            <label for="textInputMinLength">Number Input (min-length)</label>
-            <input type="number" minlength="4" id="textInputMinLength"/>
+        <div class="form-wrapper">
+            <h2 class="form-wrapper__heading">
+                Using inputParentSelector
+            </h2>
+            <div class="form-wrapper__form">
+                <form action="/" method="GET" data-example-4>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-parent-selector-1">Input</label>
+                        <input type="text" class="form-row__input" id="example-parent-selector-1" />
+                    </div>
+                    <div class="form-row">
+                        <label class="form-row__label" for="example-parent-selector-2">Input - Required</label>
+                        <input type="text" class="form-row__input" id="example-parent-selector-2" required />
+                    </div>
+                    <div class="form-row">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <script class="form-wrapper__script">
+                formalise.addForm({
+                    form: document.querySelector('[data-example-4]'),
+                    inputParentSelector: '.form-row'
+                });
+            </script>
         </div>
-        <div class="form-row">
-            <label for="emailInput">E-mail</label>
-            <input type="email" id="emailInput"/>
-        </div>
-        <button type="submit">
-            Submit form
-        </button>
-    </form>
-    <script src="./dist/main.js"></script>
-
-    <style>
-        .form-row__validation-message {
-            display: none;
-        }
-
-        .form-row.is-invalid .form-row__validation-message  {
-            display: block;
-        }
-
-        input.is-invalid {
-            border: 2px solid #f00;
-        }
-
-        input.is-valid {
-            border: 2px solid #10b700;
-        }
-    </style>
-
-    <script>
-        formalise.addForm({
-            form: document.querySelector('#testForm'),
-            inputParentSelector: '.form-row',
-            validateOn: {
-                blur: true
-            }
-        });
-    </script>
+    </section>
 </body>
+
 </html>
