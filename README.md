@@ -26,6 +26,7 @@ Once `.addForm` is called, the following occurs:
 Depending in the config, when either the input or form is validated the following occurs:
 
 * The class `is-pristine` is replaced with `is-dirty` if it's the first time checking the status of an input
+* The input is checked to see if it's valid using `HTMLInputElement.validity.valid`
 * The class `is-valid` or `is-invalid` is added to the input depending on it's validity status
 * If `inputParentSelector` config value is provided, the parent element is found and the class `is-valid` or `is-invalid` is added to the element.
 
