@@ -10,6 +10,7 @@ var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify-es').default;
 var sourcemaps = require('gulp-sourcemaps');
 var rollup = require('gulp-better-rollup');
+var rename = require('gulp-rename');
 var rollupResolve = require('rollup-plugin-node-resolve');
 
 var isProd = (argv.prod || false);
@@ -30,6 +31,12 @@ function getBabelBrowsersConfig(isLegacy = false) {
     var browsersList = []
 
     if(isLegacy === true) {
+        browsersList.push(
+            '> 1%',
+            'last 2 versions',
+            'Firefox ESR'
+        );
+    } else {
         browsersList.push(
             'Chrome >= 60',
             'Safari >= 10.1',
@@ -65,14 +72,42 @@ gulp.task('clean', function () {
     });
 });
 
-gulp.task('build', function() {
-    return gulp.src('./src/main.js')
+gulp.task('bundle:formalise', function() {
+    return gulp.src('./src/formalise.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), getRollupGenerateConfig()))
         .pipe(babel(getBabelConfig()))
-        .pipe(gulpif(isProd, uglify()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('default', gulp.series('clean', 'build'))
+gulp.task('minfy:formalise', function() {
+    return gulp.src('./dist/formalise.js')
+        .pipe(rename('formalise.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('bundle:formalise-legacy', function() {
+    return gulp.src('./src/formalise-legacy.js')
+        .pipe(gulpif(!isProd, sourcemaps.init()))
+        .pipe(rollup(getRollupConfig({ isLegacy: true }), getRollupGenerateConfig({ isLegacy: true })))
+        .pipe(babel(getBabelConfig({ isLegacy: true })))
+        .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('minfy:formalise-legacy', function() {
+    return gulp.src('./dist/formalise-legacy.js')
+        .pipe(rename('formalise-legacy.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('minfy:polyfill', function() {
+    return gulp.src('./src/polyfill*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('default', gulp.series('clean', 'bundle:formalise', 'bundle:formalise-legacy', 'minfy:polyfill', 'minfy:formalise', 'minfy:formalise-legacy'))
