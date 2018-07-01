@@ -12,8 +12,6 @@ formalise.addForm({
 });
 ```
 
-
-
 This will add the form element `[data-formalise-example]` to use formalise validation.
 
 ## How it works
