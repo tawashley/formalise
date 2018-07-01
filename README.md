@@ -4,6 +4,10 @@
 
 Form and input validation built around browser APIs. **Zero dependencies, 1.7kb bundle**
 
+```
+npm i formalise
+```
+
 ## Usage
 
 ```js
