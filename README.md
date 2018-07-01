@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tawashley/formalise.svg?branch=master)](https://travis-ci.org/tawashley/formalise)
 
-| form and input validation built around browser APIs
+Form and input validation built around browser APIs. **Zero dependencies, 1.7kb bundle**
 
 ## Usage
 
