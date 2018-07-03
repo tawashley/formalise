@@ -13,7 +13,13 @@ script:
   - gulp --prod
 after_success:
   - npm run travis-deploy-once "npm run semantic-release"
-  - .travis/deployToGHPages.sh
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_PAGES_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: gh-pages
