@@ -18,7 +18,6 @@ branches:
     - /^v\d+\.\d+\.\d+$/
 before_deploy:
   - rm .gitignore
-  - gulp --prod
   - rm -rf node_modules
 deploy:
   provider: pages
