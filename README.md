@@ -8,6 +8,11 @@ Form and input validation built around browser APIs. **Zero dependencies, 1.7kb 
 npm i formalise
 ```
 
+* [Examples](https://tawashley.github.io/formalise/)
+* [Usage](#usage)
+* [How it works](#how-it-works)
+* [Config](#config)
+
 ## Usage
 
 ```js
