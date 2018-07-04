@@ -11,9 +11,16 @@ body {
 
 .wrapper__heading {
     text-align: center;
-    font-weight: 300;
+    font-weight: 400;
+    text-decoration: underline
     margin-top: 0;
     margin-bottom: 40px;
+}
+
+.wrapper__copy {
+    margin: 40px 0;
+    text-align: center;
+    line-height: 24px;
 }
 
 .form-wrapper {
@@ -52,6 +59,7 @@ body {
     box-sizing: border-box;
     display: block;
     white-space: pre;
+    line-height: 1.5;;
 }
 
 .form-row + .form-row {
