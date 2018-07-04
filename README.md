@@ -25,7 +25,7 @@ This will add the form element `[data-formalise-example]` to use formalise valid
 
 ## How it works
 
-formalise itself doesn't do the heavy lifting in terms of validate, rather hooking into native browser APIs whilst adding a few quality of life features.
+formalise itself doesn't do the heavy lifting in terms of form validation, rather hooking into native browser APIs whilst adding a few quality of life features.
 
 Once `.addForm` is called, the following occurs:
 
