@@ -32,7 +32,7 @@ Once `.addForm` is called, the following occurs:
 * `novalidate` attribute is added to the form
 * The class `is-pristine` is added to all inputs
 
-Depending in the config, when either the input or form is validated the following occurs:
+Depending ons the config, when either the input or form is validated the following occurs:
 
 * The class `is-pristine` is replaced with `is-dirty` if it's the first time checking the status of an input
 * The input is checked to see if it's valid using `HTMLInputElement.validity.valid`
