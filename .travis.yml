@@ -16,7 +16,7 @@ branches:
     - /^v\d+\.\d+\.\d+$/
 before_deploy:
   - rm .gitignore
-  - rm -rf node_modules
+  - rm -rf node_moduless
 deploy:
   provider: pages
   skip-cleanup: true
