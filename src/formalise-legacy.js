@@ -1,5 +1,6 @@
 import './polyfill.objectAssign';
 import './polyfill.validityState';
+import './polyfill.arrayFind';
 
 import formManager from './form';
 import configManager from './configManager';

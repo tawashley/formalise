@@ -33,6 +33,8 @@ export default function formManager(config) {
 
         inputList.forEach((input) => input.validate());
 
+        focusOnFirstInvalidInput();
+
         config.onFormSubmit(formIsValid, inputList);
 
         if (formIsValid && config.submitFormWhenValid) {
@@ -42,6 +44,12 @@ export default function formManager(config) {
 
     function addNoValidateToForm() {
         config.form.setAttribute('novalidate', true);
+    }
+
+    function focusOnFirstInvalidInput() {
+        var firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
+
+        firstInvalidInput.element.focus();
     }
 
     function init() {
