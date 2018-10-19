@@ -6,7 +6,8 @@ let defaultConfig = Object.freeze({
     submitFormWhenValid: false,
     onInputBlur: function() {},
     onFormSubmit: function() {},
-    inputParentSelector: null
+    inputParentSelector: null,
+    focusOnFirstInvalidInput: true
 });
 
 export default function configManager(config) {

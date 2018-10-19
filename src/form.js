@@ -33,7 +33,9 @@ export default function formManager(config) {
 
         inputList.forEach((input) => input.validate());
 
-        focusOnFirstInvalidInput();
+        if(config.focusOnFirstInvalidInput) {
+            focusOnFirstInvalidInput();
+        }
 
         config.onFormSubmit(formIsValid, inputList);
 
