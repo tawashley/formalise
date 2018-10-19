@@ -1,8 +1,4 @@
 language: node_js
-cache:
-  directories:
-    - node_modules
-    - ~/.npm
 notifications:
   email: false
 node_js:
@@ -14,9 +10,6 @@ after_success:
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
-before_deploy:
-  - rm .gitignore
-  - rm -rf node_moduless
 deploy:
   provider: pages
   skip-cleanup: true
