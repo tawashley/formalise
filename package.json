@@ -2,7 +2,7 @@
   "name": "formalise",
   "version": "0.0.0-development",
   "description": "",
-  "main": "dist/formalise-legacy.js",
+  "main": "dist/formalise.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release",
