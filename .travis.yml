@@ -1,8 +1,7 @@
 language: node_js
 notifications:
   email: false
-node_js:
-  - '8'
+node_js: 8
 script:
   - gulp --prod
 after_success:
@@ -17,3 +16,7 @@ deploy:
   keep-history: true
   on:
     branch: master
+  provider: script
+    skip_cleanup: true
+    script:
+        - npx travis-deploy-once "npx semantic-release"
