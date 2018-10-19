@@ -52,7 +52,8 @@ formalise.addForm({
     submitFormWhenValid: false,
     onInputBlur: function() {},
     onFormSubmit: function() {},
-    inputParentSelector: null
+    inputParentSelector: null,
+    focusOnFirstInvalidInput: true
 });
 ```
 
@@ -97,3 +98,9 @@ Example `.input-parent`<br>
 A selector for a parent of the input can be provided that adds the same validation state classes (such as is-valid, is-invalid) to a parent element of the input. If provided, the DOM will be traversed upwards and stop when it matches an element with the provided selector.
 
 This can help for handling UI around inputs, such as validation errors.
+
+### focusOnFirstInvalidInput
+Type: `Boolean`<br>
+Default: `true`<br>
+
+Whether or not to focus on the first invalid input in the form when the form is invalid.
