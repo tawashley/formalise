@@ -4,12 +4,15 @@ import {
     hasClass,
     getClosestElement
 } from './DOMUtils';
+import validationMessage from './validationMessageManager';
 
 export default function inputManager(inputElement, formConfig) {
     const cssClassPristine = 'is-pristine';
     const cssClassDirty = 'is-dirty';
     const cssClassValid = 'is-valid';
     const cssClassInvalid = 'is-invalid';
+
+    let validationMessageManager;
 
     function bindInputBlurEvent() {
         inputElement.addEventListener('blur', blurHandler, false);
@@ -44,28 +47,28 @@ export default function inputManager(inputElement, formConfig) {
         formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
     }
 
-    function handleInputValidationMessage() {
-        console.log('hits handleInputValidationMessage()');
-        console.log('will need to have the CSS selector for the parent of the label, so can grab the label it and insert the validation message next to the input');
-        console.log('validation message config would be better as an object');
+    // function handleInputValidationMessage() {
+    //     console.log('hits handleInputValidationMessage()');
+    //     console.log('will need to have the CSS selector for the parent of the label, so can grab the label it and insert the validation message next to the input');
+    //     console.log('validation message config would be better as an object');
 
-        var fauxConfigObject = {
-            inputParentSelector: '.input-row',
+    //     var fauxConfigObject = {
+    //         inputParentSelector: '.input-row',
 
-        };
+    //     };
 
-        if (isInputValid()) {
-            console.log('> input is valid');
-            console.log('');
-            console.log('  - clear input validation message');
-        } else {
-            console.log('> input is invalid');
-            console.log('');
-            console.log('  - get input validation message based on validity status');
-            console.log('  - get input label text ');
-            console.log('  - set validation message');
-        }
-    }
+    //     if (isInputValid()) {
+    //         console.log('> input is valid');
+    //         console.log('');
+    //         console.log('  - clear input validation message');
+    //     } else {
+    //         console.log('> input is invalid');
+    //         console.log('');
+    //         console.log('  - get input validation message based on validity status');
+    //         console.log('  - get input label text ');
+    //         console.log('  - set validation message');
+    //     }
+    // }
 
     function validateInputStatus() {
         if (hasClass(inputElement, cssClassPristine)) {
@@ -74,9 +77,7 @@ export default function inputManager(inputElement, formConfig) {
 
         setInputValidityStatus();
 
-        // if(formConfig.showValidationMessages) {
-        //     handleInputValidationMessage();
-        // }
+        // validationMessageManager.getValidationMessage();
 
         if(formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
             var inputRowElement = getClosestElement(inputElement, formConfig.inputParentSelector);
@@ -95,6 +96,8 @@ export default function inputManager(inputElement, formConfig) {
         if (formConfig.validateOn.blur) {
             bindInputBlurEvent();
         }
+
+        // validationMessageManager = validationMessage(inputElement, formConfig);
     }
 
     init();
