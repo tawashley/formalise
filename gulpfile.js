@@ -70,8 +70,8 @@ gulp.task('bundle:formalise', function() {
     return gulp.src('./src/formalise.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), {
-			format: 'umd'
-		}))
+            format: 'umd'
+        }))
         .pipe(babel(getBabelConfig()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist'))
