@@ -15,13 +15,13 @@ var rollupResolve = require('rollup-plugin-node-resolve');
 
 var isProd = (argv.prod || false);
 
-function getRollupConfig({ isLegacy = false } = {}) {
+function getRollupConfig() {
     return {
         plugins: [rollupResolve()]
     }
 }
 
-function getRollupGenerateConfig({ isLegacy = false } = {}) {
+function getRollupGenerateConfig() {
     return {
         format: 'iife'
     }
@@ -104,10 +104,19 @@ gulp.task('minfy:formalise-legacy', function() {
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('minfy:polyfill', function() {
+gulp.task('minify:polyfill', function() {
     return gulp.src('./src/polyfill*.js')
         .pipe(uglify())
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('default', gulp.series('clean', 'bundle:formalise', 'bundle:formalise-legacy', 'minfy:polyfill', 'minfy:formalise', 'minfy:formalise-legacy'))
+gulp.task('build:iife-legacy', gulp.series('bundle:formalise-legacy', 'minfy:formalise-legacy'));
+gulp.task('build:iife-edge', gulp.series('bundle:formalise', 'minfy:formalise'));
+gulp.task('build:polyfill', gulp.series('minify:polyfill'));
+
+// gulp.task('default', gulp.series('clean', 'bundle:formalise', 'bundle:formalise-legacy', 'minify:polyfill', 'minfy:formalise', 'minfy:formalise-legacy'))
+
+gulp.task('default', gulp.series(
+    'clean',
+    gulp.parallel('build:iife-legacy', 'build:iife-edge', 'build:polyfill')
+));
