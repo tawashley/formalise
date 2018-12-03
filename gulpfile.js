@@ -66,20 +66,8 @@ gulp.task('clean', function () {
     });
 });
 
-gulp.task('bundle:formalise', function() {
+gulp.task('dist:es2015', function() {
     return gulp.src('./src/formalise.js')
-        .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig(), {
-            format: 'umd'
-        }))
-        .pipe(babel(getBabelConfig()))
-        .pipe(gulpif(!isProd, sourcemaps.write()))
-        .pipe(gulp.dest('./dist'))
-});
-
-gulp.task('bundle:formalise-es2015', function() {
-    return gulp.src('./src/formalise.js')
-        .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), {
             format: 'es'
         }))
@@ -88,22 +76,25 @@ gulp.task('bundle:formalise-es2015', function() {
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('minfy:formalise', function() {
-    return gulp.src('./dist/formalise.js')
+gulp.task('dist:umd', function() {
+    return gulp.src('./src/formalise.js')
+        .pipe(sourcemaps.init())
+        .pipe(rollup(getRollupConfig(), {
+            format: 'umd'
+        }))
+        .pipe(babel(getBabelConfig()))
+        .pipe(gulp.dest('./dist'))
         .pipe(rename('formalise.min.js'))
         .pipe(uglify())
+        .pipe(sourcemaps.write(''))
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('minify:polyfill', function() {
+gulp.task('dist:polyfill', function() {
     return gulp.src('./src/polyfill*.js')
         .pipe(uglify())
         .pipe(gulp.dest('./dist'))
 });
-
-gulp.task('dist:umd', gulp.series('bundle:formalise', 'minfy:formalise'));
-gulp.task('dist:es2015', gulp.series('bundle:formalise-es2015'));
-gulp.task('dist:polyfill', gulp.series('minify:polyfill'));
 
 gulp.task('default', gulp.series(
     'clean',
