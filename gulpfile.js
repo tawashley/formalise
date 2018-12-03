@@ -21,12 +21,6 @@ function getRollupConfig() {
     }
 }
 
-function getRollupGenerateConfig() {
-    return {
-        format: 'iife'
-    }
-}
-
 function getBabelBrowsersConfig(isLegacy = false) {
     var browsersList = []
 
@@ -75,9 +69,33 @@ gulp.task('clean', function () {
 gulp.task('bundle:formalise', function() {
     return gulp.src('./src/formalise.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig(), getRollupGenerateConfig()))
+        .pipe(rollup(getRollupConfig(), {
+            format: 'iife'
+        }))
         .pipe(babel(getBabelConfig()))
         .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('bundle:formalise-legacy', function() {
+    return gulp.src('./src/formalise-legacy.js')
+        .pipe(gulpif(!isProd, sourcemaps.init()))
+        .pipe(rollup(getRollupConfig({ isLegacy: true }), {
+            format: 'iife'
+        }))
+        .pipe(babel(getBabelConfig({ isLegacy: true })))
+        .pipe(gulpif(!isProd, sourcemaps.write()))
+        .pipe(gulp.dest('./dist'))
+});
+
+gulp.task('bundle:formalise-es2015', function() {
+    return gulp.src('./src/formalise.js')
+        .pipe(gulpif(!isProd, sourcemaps.init()))
+        .pipe(rollup(getRollupConfig(), {
+            format: 'es'
+        }))
+        .pipe(babel(getBabelConfig()))
+        .pipe(rename('formalise.es2015.js'))
         .pipe(gulp.dest('./dist'))
 });
 
@@ -85,15 +103,6 @@ gulp.task('minfy:formalise', function() {
     return gulp.src('./dist/formalise.js')
         .pipe(rename('formalise.min.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./dist'))
-});
-
-gulp.task('bundle:formalise-legacy', function() {
-    return gulp.src('./src/formalise-legacy.js')
-        .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig({ isLegacy: true }), getRollupGenerateConfig({ isLegacy: true })))
-        .pipe(babel(getBabelConfig({ isLegacy: true })))
-        .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist'))
 });
 
@@ -113,10 +122,9 @@ gulp.task('minify:polyfill', function() {
 gulp.task('build:iife-legacy', gulp.series('bundle:formalise-legacy', 'minfy:formalise-legacy'));
 gulp.task('build:iife-edge', gulp.series('bundle:formalise', 'minfy:formalise'));
 gulp.task('build:polyfill', gulp.series('minify:polyfill'));
-
-// gulp.task('default', gulp.series('clean', 'bundle:formalise', 'bundle:formalise-legacy', 'minify:polyfill', 'minfy:formalise', 'minfy:formalise-legacy'))
+gulp.task('build:es2015', gulp.series('bundle:formalise-es2015'));
 
 gulp.task('default', gulp.series(
     'clean',
-    gulp.parallel('build:iife-legacy', 'build:iife-edge', 'build:polyfill')
+    gulp.parallel('build:es2015', 'build:iife-legacy', 'build:iife-edge', 'build:polyfill')
 ));
