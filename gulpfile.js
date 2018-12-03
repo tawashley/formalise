@@ -70,20 +70,9 @@ gulp.task('bundle:formalise', function() {
     return gulp.src('./src/formalise.js')
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(rollup(getRollupConfig(), {
-            format: 'iife'
-        }))
+			format: 'umd'
+		}))
         .pipe(babel(getBabelConfig()))
-        .pipe(gulpif(!isProd, sourcemaps.write()))
-        .pipe(gulp.dest('./dist'))
-});
-
-gulp.task('bundle:formalise-legacy', function() {
-    return gulp.src('./src/formalise-legacy.js')
-        .pipe(gulpif(!isProd, sourcemaps.init()))
-        .pipe(rollup(getRollupConfig({ isLegacy: true }), {
-            format: 'iife'
-        }))
-        .pipe(babel(getBabelConfig({ isLegacy: true })))
         .pipe(gulpif(!isProd, sourcemaps.write()))
         .pipe(gulp.dest('./dist'))
 });
@@ -106,25 +95,17 @@ gulp.task('minfy:formalise', function() {
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('minfy:formalise-legacy', function() {
-    return gulp.src('./dist/formalise-legacy.js')
-        .pipe(rename('formalise-legacy.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('./dist'))
-});
-
 gulp.task('minify:polyfill', function() {
     return gulp.src('./src/polyfill*.js')
         .pipe(uglify())
         .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('build:iife-legacy', gulp.series('bundle:formalise-legacy', 'minfy:formalise-legacy'));
-gulp.task('build:iife-edge', gulp.series('bundle:formalise', 'minfy:formalise'));
-gulp.task('build:polyfill', gulp.series('minify:polyfill'));
-gulp.task('build:es2015', gulp.series('bundle:formalise-es2015'));
+gulp.task('dist:umd', gulp.series('bundle:formalise', 'minfy:formalise'));
+gulp.task('dist:es2015', gulp.series('bundle:formalise-es2015'));
+gulp.task('dist:polyfill', gulp.series('minify:polyfill'));
 
 gulp.task('default', gulp.series(
     'clean',
-    gulp.parallel('build:es2015', 'build:iife-legacy', 'build:iife-edge', 'build:polyfill')
+    gulp.parallel('dist:es2015', 'dist:umd', 'dist:polyfill')
 ));

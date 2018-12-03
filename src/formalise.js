@@ -9,6 +9,6 @@ function addForm(config) {
     forms.push(formManager(config));
 }
 
-window.formalise = {
+export default {
     addForm
 }
