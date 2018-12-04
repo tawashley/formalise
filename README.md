@@ -5,12 +5,13 @@
 Form and input validation built around browser APIs. **Zero dependencies, 1.7kb bundle**
 
 ```
-npm i formalise
+npm i formalise --save
 ```
 
 * [Examples](https://tawashley.github.io/formalise/)
 * [Usage](#usage)
 * [How it works](#how-it-works)
+* [Browser support](#browser-support)
 * [Config](#config)
 
 ## Usage
@@ -40,6 +41,26 @@ Depending ons the config, when either the input or form is validated the followi
 * If `inputParentSelector` config value is provided, the parent element is found and the class `is-valid` or `is-invalid` is added to the element.
 
 The above classes can be hooked into and used to style valid, invalid inputs.
+
+## Browser / polyfill support
+
+To help aid in any issues, formalise does come included with a small subset of polyfills that can be used can be used. These are opt-in and will require including seperately over the main bundle.
+
+* [Validity State](https://github.com/tawashley/formalise/blob/master/src/polyfill.validityState.js)
+* [Object.assign](https://github.com/tawashley/formalise/blob/master/src/polyfill.objectAssign.js)
+* [Array.find](https://github.com/tawashley/formalise/blob/master/src/polyfill.arrayFind.js)
+
+```js
+import 'formalise/dist/polyfill.validityState.js';
+import 'formalise/dist/polyfill.objectAssign.js';
+import 'formalise/dist/polyfill.arrayFind.js';
+```
+
+[polyfill.io](polyfill.io) can also help with Object.assign, Array.find if required
+
+```html
+<script src="//cdn.polyfill.io/v2/polyfill.js?features=Array.prototype.find,Object.assign"></script>
+```
 
 ## Config
 
