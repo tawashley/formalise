@@ -11,7 +11,7 @@ npm i formalise --save
 * [Examples](https://tawashley.github.io/formalise/)
 * [Usage](#usage)
 * [How it works](#how-it-works)
-* [Browser support](#browser-support)
+* [Browser support](#browser--polyfill-support)
 * [Config](#config)
 
 ## Usage
