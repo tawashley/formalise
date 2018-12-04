@@ -5,9 +5,7 @@
   "main": "dist/formalise.min.js",
   "module": "dist/formalise.es2015.js",
   "scripts": {
-    "test": "jest",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -31,9 +29,7 @@
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.13.1",
     "rollup": "^0.57.1",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "semantic-release": "^15.10.3",
-    "travis-deploy-once": "^5.0.9"
+    "rollup-plugin-node-resolve": "^3.3.0"
   },
   "repository": {
     "type": "git",
