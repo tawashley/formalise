@@ -11,5 +11,5 @@ let defaultConfig = Object.freeze({
 });
 
 export default function configManager(config) {
-    return Object.assign({}, defaultConfig, config);
+    return Object.freeze(Object.assign({}, defaultConfig, config));
 }
