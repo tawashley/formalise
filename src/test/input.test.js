@@ -49,6 +49,22 @@ describe('inputManager', () => {
             const inputInstance = inputManager(createInputElement(), getConfigObject());
 
             expect(inputInstance.element.classList.contains('is-pristine')).toBe(true);
+        });
+
+        test('calls the provided "blur" handler if validateOn.blur is set to true', () => {
+            const mockFunction = jest.fn();
+
+            const inputInstance = inputManager(createInputElement(), getConfigObject({
+                validateOn: {
+                    blur: true
+                },
+                onInputBlur: mockFunction
+            }));
+
+            inputInstance.element.focus();
+            inputInstance.element.blur();
+
+            expect(mockFunction.mock.calls.length).toBe(1);
         })
     })
 });
