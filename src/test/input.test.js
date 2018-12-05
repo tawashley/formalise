@@ -87,7 +87,7 @@ describe('inputManager', () => {
         })
 
         describe('and the input is validated', () => {
-            test('the correct validation classes are add to the element', () => {
+            test('the correct validation classes are add to the element when', () => {
                 const inputInstanceRequired = inputManager(createInputElement(true), getConfigObject());
 
                 expect(inputInstanceRequired.element.classList.contains('is-pristine')).toBe(true);
@@ -112,6 +112,49 @@ describe('inputManager', () => {
                 expect(inputInstanceRequired.element.classList.contains('is-dirty')).toBe(true);
                 expect(inputInstanceRequired.element.classList.contains('is-invalid')).toBe(true);
                 expect(inputInstanceRequired.element.classList.contains('is-valid')).toBe(false);
+            })
+
+            describe('and the inputParentSelector config is correctly set', () => {
+                test('the correct validation classes are added to the parent element', () => {
+                    var inputElement = createInputElement(true);
+                    var inputParent = document.createElement('section')
+
+                    inputParent.classList.add('input-parent')
+
+                    inputParent.appendChild(inputElement);
+
+                    const inputInstanceRequired = inputManager(inputElement, getConfigObject({
+                        inputParentSelector: '.input-parent'
+                    }));
+
+                    expect(inputElement.classList.contains('is-pristine')).toBe(true);
+                    expect(inputElement.classList.contains('is-dirty')).toBe(false);
+
+                    inputInstanceRequired.validate();
+
+                    expect(inputElement.classList.contains('is-dirty')).toBe(true);
+                    expect(inputElement.classList.contains('is-invalid')).toBe(true);
+                    expect(inputParent.classList.contains('is-invalid')).toBe(true);
+                    expect(inputParent.classList.contains('is-valid')).toBe(false);
+
+                    inputElement.value = 'input value';
+                    inputInstanceRequired.validate();
+
+                    expect(inputElement.classList.contains('is-dirty')).toBe(true);
+                    expect(inputElement.classList.contains('is-valid')).toBe(true);
+                    expect(inputElement.classList.contains('is-invalid')).toBe(false);
+                    expect(inputParent.classList.contains('is-valid')).toBe(true);
+                    expect(inputParent.classList.contains('is-invalid')).toBe(false);
+
+                    inputElement.value = '';
+                    inputInstanceRequired.validate();
+
+                    expect(inputElement.classList.contains('is-dirty')).toBe(true);
+                    expect(inputElement.classList.contains('is-invalid')).toBe(true);
+                    expect(inputElement.classList.contains('is-valid')).toBe(false);
+                    expect(inputParent.classList.contains('is-invalid')).toBe(true);
+                    expect(inputParent.classList.contains('is-valid')).toBe(false);
+                });
             })
         });
     })
