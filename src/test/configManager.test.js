@@ -21,7 +21,7 @@ describe('configManager', () => {
         expect(typeof config.onFormSubmit).toBe('function');
     });
 
-    test('return a frozen object', () => {
+    test('returns a frozen object', () => {
         const config = configManager({});
 
         expect(Object.isFrozen(config)).toBe(true);
