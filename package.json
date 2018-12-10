@@ -5,7 +5,7 @@
   "main": "dist/formalise.min.js",
   "module": "dist/formalise.es2015.js",
   "scripts": {
-    "lint:js": "eslint . --ignore-path .eslintignore",
+    "lint:js": "eslint .",
     "test:js": "jest",
     "test": "npm-run-all test:js lint:js"
   },
