@@ -4,9 +4,9 @@ import configManager from './configManager';
 const forms = [];
 
 function addForm(config) {
-    config = configManager(config);
+    const completeConfig = configManager(config);
 
-    forms.push(formManager(config));
+    forms.push(formManager(completeConfig));
 }
 
 export default {
