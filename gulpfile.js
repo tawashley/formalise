@@ -1,26 +1,22 @@
-var del = require('del');
-var argv = require('yargs').argv;
-var babel = require('gulp-babel');
-
-var gulp = require('gulp');
-var uglify = require('gulp-uglify-es').default;
-var sourcemaps = require('gulp-sourcemaps');
-var rollup = require('gulp-better-rollup');
-var rename = require('gulp-rename');
-var rollupResolve = require('rollup-plugin-node-resolve');
-
-var isProd = (argv.prod || false);
+const del = require('del');
+const babel = require('gulp-babel');
+const gulp = require('gulp');
+const uglify = require('gulp-uglify-es').default;
+const sourcemaps = require('gulp-sourcemaps');
+const rollup = require('gulp-better-rollup');
+const rename = require('gulp-rename');
+const rollupResolve = require('rollup-plugin-node-resolve');
 
 function getRollupConfig() {
     return {
         plugins: [rollupResolve()]
-    }
+    };
 }
 
 function getBabelBrowsersConfig(isLegacy = false) {
-    var browsersList = []
+    const browsersList = [];
 
-    if(isLegacy === true) {
+    if (isLegacy === true) {
         browsersList.push(
             '> 1%',
             'last 2 versions',
@@ -43,10 +39,10 @@ function getBabelBrowsersConfig(isLegacy = false) {
 }
 
 function getBabelConfig({ isLegacy = false } = {}) {
-    var options = {
+    const options = {
         babelrc: false,
-        presets:  [
-            ["@babel/env", {
+        presets: [
+            ['@babel/env', {
                 modules: false,
                 targets: getBabelBrowsersConfig(isLegacy)
             }]
@@ -56,23 +52,23 @@ function getBabelConfig({ isLegacy = false } = {}) {
     return options;
 }
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
     return del(['./dist'], {
         force: true
     });
 });
 
-gulp.task('dist:es2015', function() {
+gulp.task('dist:es2015', () => {
     return gulp.src('./src/formalise.js')
         .pipe(rollup(getRollupConfig(), {
             format: 'es'
         }))
         .pipe(babel(getBabelConfig()))
         .pipe(rename('formalise.es2015.js'))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('dist:umd', function() {
+gulp.task('dist:umd', () => {
     return gulp.src('./src/formalise.js')
         .pipe(sourcemaps.init())
         .pipe(rollup(getRollupConfig(), {
@@ -83,13 +79,13 @@ gulp.task('dist:umd', function() {
         .pipe(rename('formalise.min.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write(''))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('dist:polyfill', function() {
+gulp.task('dist:polyfill', () => {
     return gulp.src('./src/polyfill*.js')
         .pipe(uglify())
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('default', gulp.series(
