@@ -13,13 +13,15 @@ export default function formManager(config) {
         });
     }
 
-    function attachToSubmitEvent() {
-        config.form.addEventListener('submit', submitHandler, false);
+    function focusOnFirstInvalidInput() {
+        const firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
+
+        firstInvalidInput.element.focus();
     }
 
     function submitHandler(event) {
         let validationMap = [];
-        let formIsValid;
+        let formIsValid = false;
 
         event.preventDefault();
 
@@ -44,14 +46,12 @@ export default function formManager(config) {
         }
     }
 
-    function addNoValidateToForm() {
-        config.form.setAttribute('novalidate', true);
+    function attachToSubmitEvent() {
+        config.form.addEventListener('submit', submitHandler, false);
     }
 
-    function focusOnFirstInvalidInput() {
-        const firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
-
-        firstInvalidInput.element.focus();
+    function addNoValidateToForm() {
+        config.form.setAttribute('novalidate', true);
     }
 
     function init() {
