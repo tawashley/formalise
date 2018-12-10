@@ -1,17 +1,17 @@
 import inputManager from './input';
 
 export default function formManager(config) {
-    let inputList = [];
+    const inputList = [];
 
     function getAllInputsFromTheForm() {
-        let inputs = [].slice.call(config.form.querySelectorAll('input'));
+        const inputs = [].slice.call(config.form.querySelectorAll('input'));
 
-        inputs.forEach(function (input) {
-            if (input.type !== "hidden") {
+        inputs.forEach((input) => {
+            if (input.type !== 'hidden') {
                 inputList.push(inputManager(input, config));
             }
         });
-    };
+    }
 
     function attachToSubmitEvent() {
         config.form.addEventListener('submit', submitHandler, false);
@@ -23,17 +23,17 @@ export default function formManager(config) {
 
         event.preventDefault();
 
-        validationMap = inputList.map(function (input) {
+        validationMap = inputList.map((input) => {
             return input.element.validity.valid;
         });
 
-        formIsValid = validationMap.every(function (inputValidStatus) {
+        formIsValid = validationMap.every((inputValidStatus) => {
             return inputValidStatus === true;
         });
 
         inputList.forEach((input) => input.validate());
 
-        if(config.focusOnFirstInvalidInput) {
+        if (config.focusOnFirstInvalidInput) {
             focusOnFirstInvalidInput();
         }
 
@@ -49,14 +49,14 @@ export default function formManager(config) {
     }
 
     function focusOnFirstInvalidInput() {
-        var firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
+        const firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
 
         firstInvalidInput.element.focus();
     }
 
     function init() {
         addNoValidateToForm();
-        getAllInputsFromTheForm()
+        getAllInputsFromTheForm();
         attachToSubmitEvent();
     }
 
