@@ -1,5 +1,7 @@
 .git
 .github
 .travis.yml
-# github pages style
+
+# github pages files
 style.css
+index.html
