@@ -157,7 +157,7 @@ describe('DOM utils', () => {
         });
     });
 
-    describe('classList does not in element prototype', () => {
+    describe('classList does not exist in the element prototype', () => {
         describe('#addClass', () => {
             let mockElement = {};
 
