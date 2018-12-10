@@ -267,20 +267,25 @@ describe('DOM utils', () => {
 
             test('should correctly select the closest element if it exists', () => {
                 var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
-
                 var elemClosestArticle = getClosestElement(elemInstanceWithoutNativeClosest, '.article');
 
                 expect(elemClosestArticle instanceof HTMLElement).toBe(true);
                 expect(elemClosestArticle.isSameNode(document.querySelector('.getClosestElement-test-element .article'))).toBe(true);
-            })
+            });
 
-            test('should correct return null if the closest element does not exist', () => {
+            test('should correctly return null if the closest element does not exist on the page', () => {
                 var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
-
                 var elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest, '.does-not-exist');
 
                 expect(elemClosestElementThatDoesNotExist).toBe(null);
-            })
+            });
+
+            test('should correctly return null if the base element does not exist on the page', () => {
+                var elemFauxWithoutNativeClosest = Object.assign(document.createElement('div'), { closest: null });
+                var elemClosestBaseElementThatDoesNotExist = getClosestElement(elemFauxWithoutNativeClosest, '.does-not-exist');
+
+                expect(elemClosestBaseElementThatDoesNotExist).toBe(null);
+            });
         })
     });
 });
