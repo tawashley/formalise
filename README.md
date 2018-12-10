@@ -16,7 +16,12 @@ npm i formalise --save
 
 ## Usage
 
+If a bundler is being used, formalise can be imported using the ES2015 syntax. There is also a conventional bundle.
+
 ```js
+// ES2015 module
+import formalise from 'formalise';
+
 formalise.addForm({
     form: document.querySelector('[data-formalise-example]'),
 });
@@ -33,7 +38,7 @@ Once `.addForm` is called, the following occurs:
 * `novalidate` attribute is added to the form
 * The class `is-pristine` is added to all inputs
 
-Depending ons the config, when either the input or form is validated the following occurs:
+Depending one the config, when either the input or form is validated the following occurs:
 
 * The class `is-pristine` is replaced with `is-dirty` if it's the first time checking the status of an input
 * The input is checked to see if it's valid using `HTMLInputElement.validity.valid`
@@ -44,7 +49,7 @@ The above classes can be hooked into and used to style valid, invalid inputs.
 
 ## Browser / polyfill support
 
-To help aid in any issues, formalise does come included with a small subset of polyfills that can be used can be used. These are opt-in and will require including seperately over the main bundle.
+To help aid in any issues, formalise does come included with a small subset of polyfills that can be used. These are opt-in and will require including seperately over the main bundle.
 
 * [Validity State](https://github.com/tawashley/formalise/blob/master/src/polyfill.validityState.js)
 * [Object.assign](https://github.com/tawashley/formalise/blob/master/src/polyfill.objectAssign.js)
@@ -91,25 +96,27 @@ Type: `Object`<br>
 Type: `Object`<br>
 Default: `true`<br>
 
-Controls whether all inputs should be validated when the blur event is fired.
+Controls whether a single input should be validated when the input loses focus.
 
 ### submitFormWhenValid
 Type: `Boolean`<br>
 Default: `false`<br>
 
-Sets whether the form should be submitted once valid and 'submit' event is fired. Changing this can allow for extra control over submitting the form once it's valid.
+Sets whether the form should be submitted once valid. The 'onFormSubmit' handler is called before form is submitted.
+
+By default, the form will need to be submitted manually inside the provided 'onFormSubmit'. If no submit handler is provided and the form is valid, by default it will submit the form.
 
 ### onInputBlur
 Type: `Function`<br>
 Default: `function(inputElement, isInputValid, inputValidityStatus) {}`<br>
 
-Handler for when an input 'blur' event is fired. Passed into it is the input element the event was fired on, boolean for if the input is valid and the complete validity status object.
+Handler for when an input loses focus and the 'blur' event is fired. Passed into it is the input element the event was fired on, a boolean for if the input is valid and the complete validity status object of the input.
 
 ### onFormSubmit
 Type: `Function`<br>
 Default: `function(formIsValid, inputList) {}`<br>
 
-Handler for when the form 'submit' event is fired. Passed into it is a boolean for if the form is valid and an array of all inputs in the form.
+Handler for when the form submit event is fired. Passed into it is a boolean for if the form is valid and an array of all inputs in the form.
 
 ### inputParentSelector
 Type: `String`<br>
@@ -118,7 +125,7 @@ Example `.input-parent`<br>
 
 A selector for a parent of the input can be provided that adds the same validation state classes (such as is-valid, is-invalid) to a parent element of the input. If provided, the DOM will be traversed upwards and stop when it matches an element with the provided selector.
 
-This can help for handling UI around inputs, such as validation errors.
+This can help for handling UI around inputs, such as validation states.
 
 ### focusOnFirstInvalidInput
 Type: `Boolean`<br>
