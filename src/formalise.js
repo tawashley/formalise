@@ -1,7 +1,7 @@
 import formManager from './form';
 import configManager from './configManager';
 
-let forms = [];
+const forms = [];
 
 function addForm(config) {
     config = configManager(config);
@@ -11,4 +11,4 @@ function addForm(config) {
 
 export default {
     addForm
-}
+};
