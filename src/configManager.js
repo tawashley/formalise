@@ -1,11 +1,11 @@
-let defaultConfig = Object.freeze({
+const defaultConfig = Object.freeze({
     form: null,
     validateOn: {
         blur: true
     },
     submitFormWhenValid: false,
-    onInputBlur: function() {},
-    onFormSubmit: function() {},
+    onInputBlur() {},
+    onFormSubmit() {},
     inputParentSelector: null,
     focusOnFirstInvalidInput: true
 });
