@@ -1,12 +1,8 @@
-var fs = require('fs');
-var path = require('path');
-
 var del = require('del');
 var argv = require('yargs').argv;
 var babel = require('gulp-babel');
 
 var gulp = require('gulp');
-var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify-es').default;
 var sourcemaps = require('gulp-sourcemaps');
 var rollup = require('gulp-better-rollup');
