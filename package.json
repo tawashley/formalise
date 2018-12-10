@@ -5,7 +5,9 @@
   "main": "dist/formalise.min.js",
   "module": "dist/formalise.es2015.js",
   "scripts": {
-    "test": "jest"
+    "lint:js": "eslint . --ignore-path .eslintignore",
+    "test:js": "jest",
+    "test": "npm-run-all test:js lint:js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,9 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "del": "^3.0.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-better-rollup": "^3.1.0",
@@ -27,6 +32,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.1",
     "jest": "^23.6.0",
+    "npm-run-all": "^4.1.5",
     "regenerator-runtime": "^0.13.1",
     "rollup": "^0.57.1",
     "rollup-plugin-node-resolve": "^3.3.0"

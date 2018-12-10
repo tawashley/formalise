@@ -1,0 +1,6 @@
+src/polyfill.*.js
+src/test/
+
+# Generated assets
+dist/
+coverage/
