@@ -4,7 +4,8 @@ import {
     hasClass,
     toggleClass,
     toggleAttribute,
-    removeElement
+    removeElement,
+    getClosestElement
 } from 'DOMUtils';
 
 describe('DOM utils', () => {
@@ -235,5 +236,51 @@ describe('DOM utils', () => {
                 expect(mockElement.className).toEqual(` ${className}`);
             });
         });
+
+        describe('#getClosestElement', () => {
+            beforeEach(() => {
+                var html = [];
+
+                html.push('<main class="getClosestElement-test-element">');
+                html.push('<article class="article">');
+                html.push('article');
+                html.push('<section class="section">');
+                html.push('section');
+                html.push('<div class="div">');
+                html.push('div');
+                html.push('<span class="span">');
+                html.push('span');
+                html.push('</span>');
+                html.push('</div>');
+                html.push('</section>');
+                html.push('</article>');
+                html.push('</main>');
+
+                document.body.insertAdjacentHTML('afterbegin', html.join(''));
+            });
+
+            afterEach(() => {
+                var stubbedElement = document.querySelector('.getClosestElement-test-element');
+
+                stubbedElement.parentElement.removeChild(stubbedElement);
+            });
+
+            test('should correctly select the closest element if it exists', () => {
+                var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
+
+                var elemClosestArticle = getClosestElement(elemInstanceWithoutNativeClosest, '.article');
+
+                expect(elemClosestArticle instanceof HTMLElement).toBe(true);
+                expect(elemClosestArticle.isSameNode(document.querySelector('.getClosestElement-test-element .article'))).toBe(true);
+            })
+
+            test('should correct return null if the closest element does not exist', () => {
+                var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
+
+                var elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest, '.does-not-exist');
+
+                expect(elemClosestElementThatDoesNotExist).toBe(null);
+            })
+        })
     });
 });
