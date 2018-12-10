@@ -11,13 +11,12 @@ export default function inputManager(inputElement, formConfig) {
     const cssClassValid = 'is-valid';
     const cssClassInvalid = 'is-invalid';
 
-    function bindInputBlurEvent() {
-        inputElement.addEventListener('blur', blurHandler, false);
+    function isInputValid() {
+        return inputElement.validity.valid;
     }
 
-    function setInputAsDirty() {
-        removeClass(inputElement, cssClassPristine);
-        addClass(inputElement, cssClassDirty);
+    function inputValidityStatus() {
+        return inputElement.validity;
     }
 
     function setInputValidityStatus(element = inputElement) {
@@ -30,18 +29,13 @@ export default function inputManager(inputElement, formConfig) {
         }
     }
 
-    function isInputValid() {
-        return inputElement.validity.valid;
+    function setInputAsDirty() {
+        removeClass(inputElement, cssClassPristine);
+        addClass(inputElement, cssClassDirty);
     }
 
-    function inputValidityStatus() {
-        return inputElement.validity;
-    }
-
-    function blurHandler() {
-        validateInputStatus();
-
-        formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
+    function setInputStatusClass() {
+        addClass(inputElement, cssClassPristine);
     }
 
     function validateInputStatus() {
@@ -58,8 +52,14 @@ export default function inputManager(inputElement, formConfig) {
         }
     }
 
-    function setInputStatusClass() {
-        addClass(inputElement, cssClassPristine);
+    function blurHandler() {
+        validateInputStatus();
+
+        formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
+    }
+
+    function bindInputBlurEvent() {
+        inputElement.addEventListener('blur', blurHandler, false);
     }
 
     function init() {
