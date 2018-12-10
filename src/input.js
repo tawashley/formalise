@@ -51,12 +51,12 @@ export default function inputManager(inputElement, formConfig) {
 
         setInputValidityStatus();
 
-        if(formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
-            var inputRowElement = getClosestElement(inputElement, formConfig.inputParentSelector);
+        if (formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
+            const inputRowElement = getClosestElement(inputElement, formConfig.inputParentSelector);
 
             setInputValidityStatus(inputRowElement);
         }
-     }
+    }
 
     function setInputStatusClass() {
         addClass(inputElement, cssClassPristine);
@@ -74,6 +74,6 @@ export default function inputManager(inputElement, formConfig) {
 
     return {
         element: inputElement,
-        validate: validateInputStatus,
+        validate: validateInputStatus
     };
 }
