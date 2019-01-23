@@ -16,7 +16,7 @@ export default function formManager(config) {
     function focusOnFirstInvalidInput() {
         const firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
 
-        if(firstInvalidInput !== undefined) {
+        if (firstInvalidInput !== undefined) {
             firstInvalidInput.element.focus();
         }
     }
