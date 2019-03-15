@@ -1,6 +1,6 @@
 {
   "name": "formalise",
-  "version": "0.0.0-development",
+  "version": "2.0.6",
   "description": "Quick and easy form and input validation bolstered by browser APIs",
   "main": "dist/formalise.min.js",
   "module": "dist/formalise.es2015.js",
