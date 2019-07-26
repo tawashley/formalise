@@ -7,8 +7,8 @@ interface Formalise {
     addForm(config: Config): void;
 }
 
-function addForm(config: Config): void {
-    const completeConfig = configManager(config);
+function addForm(config: Partial<Config>): void {
+    const completeConfig = configManager(config as Config);
 
     if (completeConfig.form) {
         forms.push(formManager(completeConfig));

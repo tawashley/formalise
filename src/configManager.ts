@@ -15,10 +15,10 @@ type OnFormSubmitFunction = (
 
 export interface Config {
     readonly form: HTMLFormElement;
-    readonly validateOn: {
-        readonly blur: boolean;
+    readonly validateOn?: {
+        readonly blur?: boolean;
     };
-    readonly submitFormWhenValid: boolean;
+    readonly submitFormWhenValid?: boolean;
     readonly onInputBlur: OnInputBlurFunction | FunctionNoop;
     readonly onFormSubmit: OnFormSubmitFunction | FunctionNoop;
     readonly inputParentSelector: string | null;

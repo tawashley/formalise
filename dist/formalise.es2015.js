@@ -194,7 +194,6 @@ function formManager(config) {
 }
 
 var defaultConfig = {
-  form: {},
   validateOn: {
     blur: true
   },
@@ -213,7 +212,10 @@ var forms = [];
 
 function addForm(config) {
   var completeConfig = configManager(config);
-  forms.push(formManager(completeConfig));
+
+  if (completeConfig.form) {
+    forms.push(formManager(completeConfig));
+  }
 }
 
 var formalise = {

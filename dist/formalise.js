@@ -201,7 +201,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   }
 
   var defaultConfig = {
-    form: {},
     validateOn: {
       blur: true
     },
@@ -220,7 +219,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
   function addForm(config) {
     var completeConfig = configManager(config);
-    forms.push(formManager(completeConfig));
+
+    if (completeConfig.form) {
+      forms.push(formManager(completeConfig));
+    }
   }
 
   var formalise = {
