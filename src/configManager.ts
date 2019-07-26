@@ -25,8 +25,7 @@ export interface Config {
     readonly focusOnFirstInvalidInput: boolean;
 }
 
-const defaultConfig: Config = {
-    form: {} as HTMLFormElement,
+const defaultConfig: Partial<Config> = {
     validateOn: {
         blur: true
     },

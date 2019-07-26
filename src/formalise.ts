@@ -10,7 +10,9 @@ interface Formalise {
 function addForm(config: Config): void {
     const completeConfig = configManager(config);
 
-    forms.push(formManager(completeConfig));
+    if (completeConfig.form) {
+        forms.push(formManager(completeConfig));
+    }
 }
 
 const formalise: Formalise = {
