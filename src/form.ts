@@ -1,47 +1,47 @@
-import { Config } from './configManager'
+import { Config } from './configManager';
 import { inputManager, Input } from './input';
 
 export interface Form {
-    form: HTMLFormElement,
-    inputs: Input[]
+    form: HTMLFormElement;
+    inputs: Input[];
 }
 
 export function formManager(config: Config): Form {
-    let inputList: Input[] = [];
+    const inputList: Input[] = [];
 
-    function getAllInputsFromTheForm() {
+    function getAllInputsFromTheForm(): void {
         const inputs: HTMLInputElement[] = [].slice.call(config.form.querySelectorAll('input'));
 
-        inputs.forEach((input) => {
+        inputs.forEach((input): void => {
             if (input.type !== 'hidden') {
                 inputList.push(inputManager(input, config));
             }
         });
     }
 
-    function focusOnFirstInvalidInput() {
-        const firstInvalidInput = inputList.find((input) => input.element.validity.valid === false);
+    function focusOnFirstInvalidInput(): void {
+        const firstInvalidInput = inputList.find((input): boolean => input.element.validity.valid === false);
 
         if (firstInvalidInput !== undefined) {
             firstInvalidInput.element.focus();
         }
     }
 
-    function submitHandler(event: Event) {
-        let validationMap = [];
+    function submitHandler(event: Event): void {
+        let validationMap: boolean[] = [];
         let formIsValid = false;
 
         event.preventDefault();
 
-        validationMap = inputList.map((input) => {
+        validationMap = inputList.map((input): boolean => {
             return input.element.validity.valid;
         });
 
-        formIsValid = validationMap.every((inputValidStatus) => {
+        formIsValid = validationMap.every((inputValidStatus): boolean => {
             return inputValidStatus === true;
         });
 
-        inputList.forEach((input) => input.validate());
+        inputList.forEach((input): void => input.validate());
 
         if (config.focusOnFirstInvalidInput) {
             focusOnFirstInvalidInput();
@@ -54,15 +54,15 @@ export function formManager(config: Config): Form {
         }
     }
 
-    function attachToSubmitEvent() {
+    function attachToSubmitEvent(): void {
         config.form.addEventListener('submit', submitHandler, false);
     }
 
-    function addNoValidateToForm() {
+    function addNoValidateToForm(): void {
         config.form.setAttribute('novalidate', 'true');
     }
 
-    function init() {
+    function init(): void {
         addNoValidateToForm();
         getAllInputsFromTheForm();
         attachToSubmitEvent();

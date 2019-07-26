@@ -7,8 +7,8 @@ import {
 import { Config } from './configManager';
 
 export interface Input {
-    element: HTMLInputElement,
-    validate: () => void
+    element: HTMLInputElement;
+    validate: () => void;
 }
 
 enum InputValidatityCssClassNames {
@@ -19,15 +19,15 @@ enum InputValidatityCssClassNames {
 }
 
 export function inputManager(inputElement: HTMLInputElement, formaliseConfig: Config): Input {
-    function isInputValid() {
+    function isInputValid(): boolean {
         return inputElement.validity.valid;
     }
 
-    function inputValidityStatus() {
+    function inputValidityStatus(): ValidityState {
         return inputElement.validity;
     }
 
-    function setInputValidityStatus(element: HTMLElement = inputElement) {
+    function setInputValidityStatus(element: HTMLElement = inputElement): void {
         if (isInputValid()) {
             removeClass(element, InputValidatityCssClassNames.Invalid);
             addClass(element, InputValidatityCssClassNames.Valid);
@@ -37,16 +37,16 @@ export function inputManager(inputElement: HTMLInputElement, formaliseConfig: Co
         }
     }
 
-    function setInputAsDirty() {
+    function setInputAsDirty(): void {
         removeClass(inputElement, InputValidatityCssClassNames.Pristine);
         addClass(inputElement, InputValidatityCssClassNames.Dirty);
     }
 
-    function setInputStatusClass() {
+    function setInputStatusClass(): void {
         addClass(inputElement, InputValidatityCssClassNames.Pristine);
     }
 
-    function validateInputStatus() {
+    function validateInputStatus(): void {
         if (hasClass(inputElement, InputValidatityCssClassNames.Pristine)) {
             setInputAsDirty();
         }
@@ -56,23 +56,23 @@ export function inputManager(inputElement: HTMLInputElement, formaliseConfig: Co
         if (formaliseConfig.inputParentSelector !== null && formaliseConfig.inputParentSelector !== '') {
             const inputRowElement = getClosestElement(inputElement, formaliseConfig.inputParentSelector);
 
-            if(inputRowElement) {
+            if (inputRowElement) {
                 setInputValidityStatus(inputRowElement as HTMLElement);
             }
         }
     }
 
-    function blurHandler() {
+    function blurHandler(): void {
         validateInputStatus();
 
         formaliseConfig.onInputBlur(inputElement, isInputValid(), inputValidityStatus());
     }
 
-    function bindInputBlurEvent() {
+    function bindInputBlurEvent(): void {
         inputElement.addEventListener('blur', blurHandler, false);
     }
 
-    function init() {
+    function init(): void {
         setInputStatusClass();
 
         if (formaliseConfig.validateOn.blur) {

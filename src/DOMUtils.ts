@@ -1,4 +1,4 @@
-export function addClass(element: HTMLElement, className: string) {
+export function addClass(element: HTMLElement, className: string): void {
     if (element.classList) {
         element.classList.add(className);
     } else {
@@ -6,7 +6,7 @@ export function addClass(element: HTMLElement, className: string) {
     }
 }
 
-export function removeClass(element: HTMLElement, className: string) {
+export function removeClass(element: HTMLElement, className: string): void {
     if (element.classList) {
         element.classList.remove(className);
     } else {
@@ -14,14 +14,14 @@ export function removeClass(element: HTMLElement, className: string) {
     }
 }
 
-export function hasClass(element: HTMLElement, className: string) {
+export function hasClass(element: HTMLElement, className: string): boolean {
     if (element.classList) {
         return element.classList.contains(className);
     }
     return new RegExp(`(^| )${className}( |$)`, 'gi').test(element.className);
 }
 
-export function toggleAttribute(element: HTMLElement, attr: string, val: string) {
+export function toggleAttribute(element: HTMLElement, attr: string, val: string): void {
     if (element.hasAttribute(attr) && element.getAttribute(attr) === val) {
         element.removeAttribute(attr);
     } else {
@@ -29,7 +29,7 @@ export function toggleAttribute(element: HTMLElement, attr: string, val: string)
     }
 }
 
-export function toggleClass(element: HTMLElement, className: string) {
+export function toggleClass(element: HTMLElement, className: string): void {
     if (element.classList) {
         element.classList.toggle(className);
     } else {
@@ -46,13 +46,13 @@ export function toggleClass(element: HTMLElement, className: string) {
     }
 }
 
-export function removeElement(element: HTMLElement) {
-    if(element.parentNode) {
+export function removeElement(element: HTMLElement): void {
+    if (element.parentNode) {
         element.parentNode.removeChild(element);
     }
 }
 
-export function getClosestElement(element: HTMLElement, selector: string) {
+export function getClosestElement(element: HTMLElement, selector: string): Element | null {
     let baseElement = element;
 
     if (baseElement.closest) {
