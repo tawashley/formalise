@@ -1,10 +1,16 @@
-import inputManager from './input';
+import { Config } from './configManager'
+import { inputManager, Input } from './input';
 
-export default function formManager(config) {
-    const inputList = [];
+export interface Form {
+    form: HTMLFormElement,
+    inputs: Input[]
+}
+
+export function formManager(config: Config): Form {
+    let inputList: Input[] = [];
 
     function getAllInputsFromTheForm() {
-        const inputs = [].slice.call(config.form.querySelectorAll('input'));
+        const inputs: HTMLInputElement[] = [].slice.call(config.form.querySelectorAll('input'));
 
         inputs.forEach((input) => {
             if (input.type !== 'hidden') {
@@ -21,7 +27,7 @@ export default function formManager(config) {
         }
     }
 
-    function submitHandler(event) {
+    function submitHandler(event: Event) {
         let validationMap = [];
         let formIsValid = false;
 
@@ -53,7 +59,7 @@ export default function formManager(config) {
     }
 
     function addNoValidateToForm() {
-        config.form.setAttribute('novalidate', true);
+        config.form.setAttribute('novalidate', 'true');
     }
 
     function init() {

@@ -1,4 +1,4 @@
-export function addClass(element, className) {
+export function addClass(element: HTMLElement, className: string) {
     if (element.classList) {
         element.classList.add(className);
     } else {
@@ -6,7 +6,7 @@ export function addClass(element, className) {
     }
 }
 
-export function removeClass(element, className) {
+export function removeClass(element: HTMLElement, className: string) {
     if (element.classList) {
         element.classList.remove(className);
     } else {
@@ -14,14 +14,14 @@ export function removeClass(element, className) {
     }
 }
 
-export function hasClass(element, className) {
+export function hasClass(element: HTMLElement, className: string) {
     if (element.classList) {
         return element.classList.contains(className);
     }
     return new RegExp(`(^| )${className}( |$)`, 'gi').test(element.className);
 }
 
-export function toggleAttribute(element, attr, val) {
+export function toggleAttribute(element: HTMLElement, attr: string, val: string) {
     if (element.hasAttribute(attr) && element.getAttribute(attr) === val) {
         element.removeAttribute(attr);
     } else {
@@ -29,7 +29,7 @@ export function toggleAttribute(element, attr, val) {
     }
 }
 
-export function toggleClass(element, className) {
+export function toggleClass(element: HTMLElement, className: string) {
     if (element.classList) {
         element.classList.toggle(className);
     } else {
@@ -46,11 +46,13 @@ export function toggleClass(element, className) {
     }
 }
 
-export function removeElement(element) {
-    element.parentNode.removeChild(element);
+export function removeElement(element: HTMLElement) {
+    if(element.parentNode) {
+        element.parentNode.removeChild(element);
+    }
 }
 
-export function getClosestElement(element, selector) {
+export function getClosestElement(element: HTMLElement, selector: string) {
     let baseElement = element;
 
     if (baseElement.closest) {
@@ -66,7 +68,7 @@ export function getClosestElement(element, selector) {
             return baseElement;
         }
 
-        baseElement = baseElement.parentElement || baseElement.parentNode;
+        baseElement = (baseElement.parentElement || baseElement.parentNode) as HTMLElement;
     } while (baseElement !== null && baseElement.nodeType === 1);
 
     return null;

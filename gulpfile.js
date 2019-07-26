@@ -6,10 +6,19 @@ const sourcemaps = require('gulp-sourcemaps');
 const rollup = require('gulp-better-rollup');
 const rename = require('gulp-rename');
 const rollupResolve = require('rollup-plugin-node-resolve');
+const typescriptRollup = require('rollup-plugin-typescript2');
+const typescript = require('typescript');
 
 function getRollupConfig() {
     return {
-        plugins: [rollupResolve()]
+        plugins: [
+            typescriptRollup({
+                typescript,
+                tsconfig: './tsconfig.json',
+                useTsconfigDeclarationDir: true
+            }),
+            rollupResolve()
+        ]
     };
 }
 
@@ -45,7 +54,8 @@ function getBabelConfig({ isLegacy = false } = {}) {
             ['@babel/env', {
                 modules: false,
                 targets: getBabelBrowsersConfig(isLegacy)
-            }]
+            }],
+            '@babel/typescript'
         ]
     };
 
@@ -59,7 +69,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('dist:es2015', () => {
-    return gulp.src('./src/formalise.js')
+    return gulp.src('./src/formalise.ts')
         .pipe(rollup(getRollupConfig(), {
             format: 'es'
         }))
@@ -69,7 +79,7 @@ gulp.task('dist:es2015', () => {
 });
 
 gulp.task('dist:umd', () => {
-    return gulp.src('./src/formalise.js')
+    return gulp.src('./src/formalise.ts')
         .pipe(sourcemaps.init())
         .pipe(rollup(getRollupConfig(), {
             format: 'umd'
