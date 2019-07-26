@@ -69,5 +69,16 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    "globals": {
+        "jest": "readonly",
+        "it": "readonly",
+        "describe": "readonly",
+        "expect": "readonly",
+        "test": "readonly",
+        "beforeEach": "readonly",
+        "beforeAll": "readonly",
+        "afterEach": "readonly",
+        "afterAll": "readonly",
+    },
 };

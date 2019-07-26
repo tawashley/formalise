@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { inputManager } from '../input';
 
 function createInputElement(required = false) {
@@ -5,7 +6,7 @@ function createInputElement(required = false) {
 
     input.type = 'text';
 
-    if(required) {
+    if (required) {
         input.required = true;
     }
 
@@ -75,7 +76,7 @@ describe('inputManager', () => {
                 inputInstance.element.blur();
 
                 expect(mockFunction.mock.calls.length).toBe(1);
-            })
+            });
 
             test('the correct validiation classes are added to the input element', () => {
                 inputInstance.element.focus();
@@ -83,8 +84,8 @@ describe('inputManager', () => {
 
                 expect(inputInstance.element.classList.contains('is-dirty')).toBe(true);
                 expect(inputInstance.element.classList.contains('is-valid')).toBe(true);
-            })
-        })
+            });
+        });
 
         describe('and the input is validated', () => {
             test('the correct validation classes are add to the element when', () => {
@@ -112,14 +113,14 @@ describe('inputManager', () => {
                 expect(inputInstanceRequired.element.classList.contains('is-dirty')).toBe(true);
                 expect(inputInstanceRequired.element.classList.contains('is-invalid')).toBe(true);
                 expect(inputInstanceRequired.element.classList.contains('is-valid')).toBe(false);
-            })
+            });
 
             describe('and the inputParentSelector config is correctly set', () => {
                 test('the correct validation classes are added to the parent element', () => {
-                    var inputElement = createInputElement(true);
-                    var inputParent = document.createElement('section')
+                    const inputElement = createInputElement(true);
+                    const inputParent = document.createElement('section');
 
-                    inputParent.classList.add('input-parent')
+                    inputParent.classList.add('input-parent');
 
                     inputParent.appendChild(inputElement);
 
@@ -155,7 +156,7 @@ describe('inputManager', () => {
                     expect(inputParent.classList.contains('is-invalid')).toBe(true);
                     expect(inputParent.classList.contains('is-valid')).toBe(false);
                 });
-            })
+            });
         });
-    })
+    });
 });

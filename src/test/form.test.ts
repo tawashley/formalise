@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { formManager } from '../form';
 
-function createInputElement({ inputType, required = false, inputId = null }: { inputType: string, inputId: string | null, required?: boolean }) {
+function createInputElement({ inputType, required = false, inputId = null }: { inputType: string; inputId: string | null; required?: boolean }) {
     const input = document.createElement('input');
 
-    input.type = inputType
+    input.type = inputType;
 
-    if(inputId !== null) {
+    if (inputId !== null) {
         input.id = inputId;
     }
 
-    if(required) {
+    if (required) {
         input.required = true;
     }
 
@@ -66,11 +67,11 @@ describe('form manager', () => {
         });
 
         test('adds the "novalidate" attribute to the form', () => {
-            const formManagerInstance = formManager(getConfigObject({
+            formManager(getConfigObject({
                 form: formElement
             }));
 
-            expect(formElement.getAttribute('novalidate')).not.toBeNull;
+            expect(formElement.getAttribute('novalidate')).not.toBeNull();
             expect(formElement.getAttribute('novalidate')).toBe('true');
         });
 
@@ -83,10 +84,10 @@ describe('form manager', () => {
         });
 
         describe('And a form that is invalid is submitted', () => {
-            test('should invoke the config onFormSubmit handler, passing the correct arguments', ()=> {
-                let mockFunction = jest.fn();
+            test('should invoke the config onFormSubmit handler, passing the correct arguments', () => {
+                const mockFunction = jest.fn();
 
-                const formManagerInstance = formManager(getConfigObject({
+                formManager(getConfigObject({
                     form: formElement,
                     onFormSubmit: mockFunction
                 }));

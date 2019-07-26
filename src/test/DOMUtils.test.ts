@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
     addClass,
     removeClass,
@@ -79,7 +80,7 @@ describe('DOM utils', () => {
         });
 
         describe('#toggleClass', () => {
-            let testElement: any
+            let testElement: any;
             const className = 'class-to-check';
 
             beforeEach(() => {
@@ -146,7 +147,7 @@ describe('DOM utils', () => {
 
             test('should correctly from the element from the page', () => {
                 const element = document.getElementById(elementId) as HTMLElement;
-                let elementAfterRemoval: any;
+                let elementAfterRemoval: any = '';
 
                 removeElement(element);
 
@@ -239,7 +240,7 @@ describe('DOM utils', () => {
 
         describe('#getClosestElement', () => {
             beforeEach(() => {
-                var html = [];
+                const html = [];
 
                 html.push('<main class="getClosestElement-test-element">');
                 html.push('<article class="article">');
@@ -260,32 +261,32 @@ describe('DOM utils', () => {
             });
 
             afterEach(() => {
-                var stubbedElement = document.querySelector('.getClosestElement-test-element') as any;
+                const stubbedElement = document.querySelector('.getClosestElement-test-element') as any;
 
                 stubbedElement.parentElement.removeChild(stubbedElement);
             });
 
             test('should correctly select the closest element if it exists', () => {
-                var elemInstanceWithoutNativeClosest =  Object.assign(document.querySelector('.span'), { closest: null });
-                var elemClosestArticle: any = getClosestElement(elemInstanceWithoutNativeClosest as any, '.article');
+                const elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
+                const elemClosestArticle: any = getClosestElement(elemInstanceWithoutNativeClosest as any, '.article');
 
                 expect(elemClosestArticle instanceof HTMLElement).toBe(true);
                 expect(elemClosestArticle.isSameNode(document.querySelector('.getClosestElement-test-element .article'))).toBe(true);
             });
 
             test('should correctly return null if the closest element does not exist on the page', () => {
-                var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
-                var elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest as any, '.does-not-exist');
+                const elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
+                const elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest as any, '.does-not-exist');
 
                 expect(elemClosestElementThatDoesNotExist).toBe(null);
             });
 
             test('should correctly return null if the base element does not exist on the page', () => {
-                var elemFauxWithoutNativeClosest = Object.assign(document.createElement('div'), { closest: null });
-                var elemClosestBaseElementThatDoesNotExist = getClosestElement(elemFauxWithoutNativeClosest, '.does-not-exist');
+                const elemFauxWithoutNativeClosest = Object.assign(document.createElement('div'), { closest: null });
+                const elemClosestBaseElementThatDoesNotExist = getClosestElement(elemFauxWithoutNativeClosest, '.does-not-exist');
 
                 expect(elemClosestBaseElementThatDoesNotExist).toBe(null);
             });
-        })
+        });
     });
 });
