@@ -2,7 +2,7 @@ function addClass(element, className) {
   if (element.classList) {
     element.classList.add(className);
   } else {
-    element.className += " ".concat(className);
+    element.className += " " + className;
   }
 }
 
@@ -10,7 +10,7 @@ function removeClass(element, className) {
   if (element.classList) {
     element.classList.remove(className);
   } else {
-    element.className = element.className.replace(new RegExp("(^|\\b)".concat(className.split(' ').join('|'), "(\\b|$)"), 'gi'), ' ');
+    element.className = element.className.replace(new RegExp("(^|\\b)" + className.split(' ').join('|') + "(\\b|$)", 'gi'), ' ');
   }
 }
 
@@ -19,7 +19,7 @@ function hasClass(element, className) {
     return element.classList.contains(className);
   }
 
-  return new RegExp("(^| )".concat(className, "( |$)"), 'gi').test(element.className);
+  return new RegExp("(^| )" + className + "( |$)", 'gi').test(element.className);
 }
 
 function getClosestElement(element, selector) {
@@ -44,12 +44,16 @@ function getClosestElement(element, selector) {
   return null;
 }
 
-function inputManager(inputElement, formConfig) {
-  var cssClassPristine = 'is-pristine';
-  var cssClassDirty = 'is-dirty';
-  var cssClassValid = 'is-valid';
-  var cssClassInvalid = 'is-invalid';
+var InputValidatityCssClassNames;
 
+(function (InputValidatityCssClassNames) {
+  InputValidatityCssClassNames["Pristine"] = "is-pristine";
+  InputValidatityCssClassNames["Dirty"] = "is-dirty";
+  InputValidatityCssClassNames["Valid"] = "is-valid";
+  InputValidatityCssClassNames["Invalid"] = "is-invalid";
+})(InputValidatityCssClassNames || (InputValidatityCssClassNames = {}));
+
+function inputManager(inputElement, formaliseConfig) {
   function isInputValid() {
     return inputElement.validity.valid;
   }
@@ -58,43 +62,48 @@ function inputManager(inputElement, formConfig) {
     return inputElement.validity;
   }
 
-  function setInputValidityStatus() {
-    var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : inputElement;
+  function setInputValidityStatus(element) {
+    if (element === void 0) {
+      element = inputElement;
+    }
 
     if (isInputValid()) {
-      removeClass(element, cssClassInvalid);
-      addClass(element, cssClassValid);
+      removeClass(element, InputValidatityCssClassNames.Invalid);
+      addClass(element, InputValidatityCssClassNames.Valid);
     } else {
-      removeClass(element, cssClassValid);
-      addClass(element, cssClassInvalid);
+      removeClass(element, InputValidatityCssClassNames.Valid);
+      addClass(element, InputValidatityCssClassNames.Invalid);
     }
   }
 
   function setInputAsDirty() {
-    removeClass(inputElement, cssClassPristine);
-    addClass(inputElement, cssClassDirty);
+    removeClass(inputElement, InputValidatityCssClassNames.Pristine);
+    addClass(inputElement, InputValidatityCssClassNames.Dirty);
   }
 
   function setInputStatusClass() {
-    addClass(inputElement, cssClassPristine);
+    addClass(inputElement, InputValidatityCssClassNames.Pristine);
   }
 
   function validateInputStatus() {
-    if (hasClass(inputElement, cssClassPristine)) {
+    if (hasClass(inputElement, InputValidatityCssClassNames.Pristine)) {
       setInputAsDirty();
     }
 
     setInputValidityStatus();
 
-    if (formConfig.inputParentSelector !== null && formConfig.inputParentSelector !== '') {
-      var inputRowElement = getClosestElement(inputElement, formConfig.inputParentSelector);
-      setInputValidityStatus(inputRowElement);
+    if (formaliseConfig.inputParentSelector !== null && formaliseConfig.inputParentSelector !== '') {
+      var inputRowElement = getClosestElement(inputElement, formaliseConfig.inputParentSelector);
+
+      if (inputRowElement) {
+        setInputValidityStatus(inputRowElement);
+      }
     }
   }
 
   function blurHandler() {
     validateInputStatus();
-    formConfig.onInputBlur(inputElement, isInputValid(inputElement), inputValidityStatus(inputElement));
+    formaliseConfig.onInputBlur(inputElement, isInputValid(), inputValidityStatus());
   }
 
   function bindInputBlurEvent() {
@@ -104,7 +113,7 @@ function inputManager(inputElement, formConfig) {
   function init() {
     setInputStatusClass();
 
-    if (formConfig.validateOn.blur) {
+    if (formaliseConfig.validateOn.blur) {
       bindInputBlurEvent();
     }
   }
@@ -168,7 +177,7 @@ function formManager(config) {
   }
 
   function addNoValidateToForm() {
-    config.form.setAttribute('novalidate', true);
+    config.form.setAttribute('novalidate', 'true');
   }
 
   function init() {
@@ -184,8 +193,8 @@ function formManager(config) {
   };
 }
 
-var defaultConfig = Object.freeze({
-  form: null,
+var defaultConfig = {
+  form: {},
   validateOn: {
     blur: true
   },
@@ -194,10 +203,10 @@ var defaultConfig = Object.freeze({
   onFormSubmit: function onFormSubmit() {},
   inputParentSelector: null,
   focusOnFirstInvalidInput: true
-});
+};
 
 function configManager(config) {
-  return Object.freeze(Object.assign({}, defaultConfig, config));
+  return Object.assign({}, defaultConfig, config);
 }
 
 var forms = [];
