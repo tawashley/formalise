@@ -1,4 +1,4 @@
-import configManager from 'configManager';
+import { configManager } from '../configManager';
 
 describe('configManager', () => {
     test('exports a function', () => {
@@ -20,10 +20,4 @@ describe('configManager', () => {
         expect(typeof config.onInputBlur).toBe('function');
         expect(typeof config.onFormSubmit).toBe('function');
     });
-
-    test('returns a frozen object', () => {
-        const config = configManager({});
-
-        expect(Object.isFrozen(config)).toBe(true);
-    })
 });

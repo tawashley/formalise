@@ -1,6 +1,10 @@
 {
     "env": {
         "test": {
+            "presets": [
+                "@babel/typescript",
+                ["@babel/env", { "modules": "commonjs" }]
+            ],
             "plugins": [
                 "@babel/plugin-transform-modules-commonjs"
             ]

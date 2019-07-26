@@ -1,4 +1,4 @@
-import inputManager from 'input';
+import { inputManager } from '../input';
 
 function createInputElement(required = false) {
     const input = document.createElement('input');
@@ -14,16 +14,16 @@ function createInputElement(required = false) {
 
 function getDefaultConfigObject() {
     return {
-        form: null,
+        form: {} as HTMLFormElement,
         validateOn: {
             blur: true
         },
         submitFormWhenValid: false,
-        onInputBlur: function() {},
-        onFormSubmit: function() {},
+        onInputBlur() {},
+        onFormSubmit() {},
         inputParentSelector: null,
         focusOnFirstInvalidInput: true
-    }
+    };
 }
 
 function getConfigObject(config = {}) {
@@ -56,8 +56,8 @@ describe('inputManager', () => {
         });
 
         describe('and validate.blur config is set to true', () => {
-            let mockFunction;
-            let inputInstance;
+            let mockFunction: any;
+            let inputInstance: any;
 
             beforeEach(() => {
                 mockFunction = jest.fn();

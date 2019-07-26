@@ -1,11 +1,11 @@
-import formalise from 'formalise';
+import formalise from '../formalise';
 
 describe('formalise', () => {
-    test('exports an object', () => {
+    test('should export the API object', () => {
         expect(typeof formalise).toBe('object');
     });
 
-    test('exports .addForm function', () => {
+    test('should export the addForm function', () => {
         expect(typeof formalise.addForm).toBe('function');
     });
 });

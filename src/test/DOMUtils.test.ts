@@ -6,12 +6,12 @@ import {
     toggleAttribute,
     removeElement,
     getClosestElement
-} from 'DOMUtils';
+} from '../DOMUtils';
 
 describe('DOM utils', () => {
     describe('classList exists in element prototype', () => {
         describe('#addClass', () => {
-            let testElement = '';
+            let testElement: any;
 
             beforeEach(() => {
                 testElement = document.createElement('span');
@@ -32,7 +32,7 @@ describe('DOM utils', () => {
         });
 
         describe('#removeClass', () => {
-            let testElement = '';
+            let testElement: any;
             const className = 'class-to-be-removed';
 
             beforeEach(() => {
@@ -53,7 +53,7 @@ describe('DOM utils', () => {
         });
 
         describe('#hasClass', () => {
-            let testElement = '';
+            let testElement: any;
             const className = 'class-to-check';
 
             beforeEach(() => {
@@ -79,7 +79,7 @@ describe('DOM utils', () => {
         });
 
         describe('#toggleClass', () => {
-            let testElement = '';
+            let testElement: any
             const className = 'class-to-check';
 
             beforeEach(() => {
@@ -108,7 +108,7 @@ describe('DOM utils', () => {
         });
 
         describe('#toggleAttribute', () => {
-            let testElement = '';
+            let testElement: any;
 
             beforeEach(() => {
                 testElement = document.createElement('span');
@@ -145,8 +145,8 @@ describe('DOM utils', () => {
             });
 
             test('should correctly from the element from the page', () => {
-                const element = document.getElementById(elementId);
-                let elementAfterRemoval = '';
+                const element = document.getElementById(elementId) as HTMLElement;
+                let elementAfterRemoval: any;
 
                 removeElement(element);
 
@@ -159,7 +159,7 @@ describe('DOM utils', () => {
 
     describe('classList does not exist in the element prototype', () => {
         describe('#addClass', () => {
-            let mockElement = {};
+            let mockElement = {} as any;
 
             beforeEach(() => {
                 mockElement = {
@@ -177,7 +177,7 @@ describe('DOM utils', () => {
         });
 
         describe('#removeClass', () => {
-            let mockElement = {};
+            let mockElement = {} as any;
             const className = 'class-to-be-removed';
 
             beforeEach(() => {
@@ -193,7 +193,7 @@ describe('DOM utils', () => {
         });
 
         describe('#hasClass', () => {
-            let mockElement = {};
+            let mockElement = {} as any;
             const className = 'class-to-check';
 
             beforeEach(() => {
@@ -214,7 +214,7 @@ describe('DOM utils', () => {
         });
 
         describe('#toggleClass', () => {
-            let mockElement = {};
+            let mockElement = {} as any;
             const className = 'class-to-check';
 
             beforeEach(() => {
@@ -260,14 +260,14 @@ describe('DOM utils', () => {
             });
 
             afterEach(() => {
-                var stubbedElement = document.querySelector('.getClosestElement-test-element');
+                var stubbedElement = document.querySelector('.getClosestElement-test-element') as any;
 
                 stubbedElement.parentElement.removeChild(stubbedElement);
             });
 
             test('should correctly select the closest element if it exists', () => {
-                var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
-                var elemClosestArticle = getClosestElement(elemInstanceWithoutNativeClosest, '.article');
+                var elemInstanceWithoutNativeClosest =  Object.assign(document.querySelector('.span'), { closest: null });
+                var elemClosestArticle: any = getClosestElement(elemInstanceWithoutNativeClosest as any, '.article');
 
                 expect(elemClosestArticle instanceof HTMLElement).toBe(true);
                 expect(elemClosestArticle.isSameNode(document.querySelector('.getClosestElement-test-element .article'))).toBe(true);
@@ -275,7 +275,7 @@ describe('DOM utils', () => {
 
             test('should correctly return null if the closest element does not exist on the page', () => {
                 var elemInstanceWithoutNativeClosest = Object.assign(document.querySelector('.span'), { closest: null });
-                var elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest, '.does-not-exist');
+                var elemClosestElementThatDoesNotExist = getClosestElement(elemInstanceWithoutNativeClosest as any, '.does-not-exist');
 
                 expect(elemClosestElementThatDoesNotExist).toBe(null);
             });

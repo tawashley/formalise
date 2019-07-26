@@ -1,6 +1,6 @@
-import formManager from 'form';
+import { formManager } from '../form';
 
-function createInputElement({ inputType, required = false, inputId = null }) {
+function createInputElement({ inputType, required = false, inputId = null }: { inputType: string, inputId: string | null, required?: boolean }) {
     const input = document.createElement('input');
 
     input.type = inputType
@@ -32,16 +32,16 @@ function getFormElementWithMulipleInput() {
 
 function getDefaultConfigObject() {
     return {
-        form: null,
+        form: {} as HTMLFormElement,
         validateOn: {
             blur: true
         },
         submitFormWhenValid: false,
-        onInputBlur: function() {},
-        onFormSubmit: function() {},
+        onInputBlur() {},
+        onFormSubmit() {},
         inputParentSelector: null,
         focusOnFirstInvalidInput: true
-    }
+    };
 }
 
 function getConfigObject(config = {}) {

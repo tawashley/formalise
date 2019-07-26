@@ -2,17 +2,19 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
+    // npm i --save-dev ts-jest
+    // preset: 'ts-jest',
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
-    // Stop running tests after the first failure
-    // bail: false,
+    // Stop running tests after `n` failures
+    // bail: 0,
 
     // Respect "browser" field in package.json when resolving modules
     // browser: false,
 
     // The directory where Jest should store its cached dependency information
-    // cacheDirectory: "/var/folders/__/rfps25c91x70nj6cbkc76dys9b1tv4/T/jest_mxz7tw",
+    // cacheDirectory: "/private/var/folders/t8/41mccjk50l36w35_dc56fg1h0000gp/T/jest_dy",
 
     // Automatically clear mock calls and instances between every test
     // clearMocks: false,
@@ -24,7 +26,7 @@ module.exports = {
     // collectCoverageFrom: null,
 
     // The directory where Jest should output its coverage files
-    // coverageDirectory: null,
+    coverageDirectory: 'coverage',
 
     // An array of regexp pattern strings used to skip coverage collection
     // coveragePathIgnorePatterns: [
@@ -35,18 +37,21 @@ module.exports = {
     coverageReporters: [
         'html',
         'text'
-    // "json",
-    // "lcov",
-    // "clover"
+        // "json",
+        // "lcov",
+        // "clover"
     ],
 
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: null,
 
+    // A path to a custom dependency extractor
+    // dependencyExtractor: null,
+
     // Make calling deprecated APIs throw helpful error messages
     // errorOnDeprecated: false,
 
-    // Force coverage collection from ignored files usin a array of glob patterns
+    // Force coverage collection from ignored files using an array of glob patterns
     // forceCoverageMatch: [],
 
     // A path to a module which exports an async function that is triggered once before all test suites
@@ -60,8 +65,7 @@ module.exports = {
 
     // An array of directory names to be searched recursively up from the requiring module's location
     moduleDirectories: [
-        'node_modules',
-        './src'
+        'node_modules'
     ],
 
     // An array of file extensions your modules use
@@ -69,6 +73,8 @@ module.exports = {
     //   "js",
     //   "json",
     //   "jsx",
+    //   "ts",
+    //   "tsx",
     //   "node"
     // ],
 
@@ -82,7 +88,7 @@ module.exports = {
     // notify: false,
 
     // An enum that specifies notification mode. Requires { notify: true }
-    // notifyMode: "always",
+    // notifyMode: "failure-change",
 
     // A preset that is used as a base for Jest's configuration
     // preset: null,
@@ -119,8 +125,8 @@ module.exports = {
     // The paths to modules that run some code to configure or set up the testing environment before each test
     // setupFiles: [],
 
-    // The path to a module that runs some code to configure or set up the testing framework before each test
-    // setupTestFrameworkScriptFile: null,
+    // A list of paths to modules that run some code to configure or set up the testing framework before each test
+    // setupFilesAfterEnv: [],
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
@@ -136,8 +142,8 @@ module.exports = {
 
     // The glob patterns Jest uses to detect test files
     // testMatch: [
-    //   "**/__tests__/**/*.js?(x)",
-    //   "**/?(*.)+(spec|test).js?(x)"
+    //   "**/__tests__/**/*.[jt]s?(x)",
+    //   "**/?(*.)+(spec|test).[tj]s?(x)"
     // ],
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
@@ -145,8 +151,8 @@ module.exports = {
     //   "/node_modules/"
     // ],
 
-    // The regexp pattern Jest uses to detect test files
-    // testRegex: "",
+    // The regexp pattern or array of patterns that Jest uses to detect test files
+    // testRegex: [],
 
     // This option allows the use of a custom results processor
     // testResultsProcessor: null,
