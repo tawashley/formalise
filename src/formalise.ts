@@ -8,10 +8,10 @@ interface Formalise {
 }
 
 function addForm(config: Partial<Config>): void {
-    const completeConfig = configManager(config as Config);
+    const fullConfig = configManager(config);
 
-    if (completeConfig.form) {
-        forms.push(formManager(completeConfig));
+    if (fullConfig.form) {
+        forms.push(formManager(fullConfig));
     }
 }
 

@@ -211,17 +211,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     focusOnFirstInvalidInput: true
   };
 
-  function configManager(config) {
-    return Object.assign({}, defaultConfig, config);
+  function configManager(userConfig) {
+    return Object.assign({}, defaultConfig, userConfig);
   }
 
   var forms = [];
 
   function addForm(config) {
-    var completeConfig = configManager(config);
+    var fullConfig = configManager(config);
 
-    if (completeConfig.form) {
-      forms.push(formManager(completeConfig));
+    if (fullConfig.form) {
+      forms.push(formManager(fullConfig));
     }
   }
 

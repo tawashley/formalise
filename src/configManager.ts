@@ -15,10 +15,10 @@ type OnFormSubmitFunction = (
 
 export interface Config {
     readonly form: HTMLFormElement;
-    readonly validateOn?: {
-        readonly blur?: boolean;
+    readonly validateOn: {
+        readonly blur: boolean;
     };
-    readonly submitFormWhenValid?: boolean;
+    readonly submitFormWhenValid: boolean;
     readonly onInputBlur: OnInputBlurFunction | FunctionNoop;
     readonly onFormSubmit: OnFormSubmitFunction | FunctionNoop;
     readonly inputParentSelector: string | null;
@@ -36,6 +36,6 @@ const defaultConfig: Partial<Config> = {
     focusOnFirstInvalidInput: true
 };
 
-export function configManager(config: Config): Config {
-    return Object.assign({}, defaultConfig, config);
+export function configManager(userConfig: Partial<Config>): Config {
+    return Object.assign({}, defaultConfig, userConfig) as Config;
 }
