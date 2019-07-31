@@ -5,3 +5,8 @@
 # github pages files
 style.css
 index.html
+
+# build
+.rpt2_cache
+coverage
+.vscode
