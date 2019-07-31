@@ -1,5 +1,5 @@
 src/polyfill.*.js
-# src/test/
+src/test/
 
 # Generated assets
 dist/
