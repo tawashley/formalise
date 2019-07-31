@@ -42,7 +42,7 @@
         "regenerator-runtime": "^0.13.1",
         "rollup-plugin-node-resolve": "^3.3.0",
         "rollup-plugin-typescript2": "^0.22.0",
-        "semantic-release": "^15.12.4",
+        "semantic-release": "^15.13.19",
         "travis-deploy-once": "^5.0.9",
         "typescript": "^3.5.3"
     },
