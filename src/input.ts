@@ -11,12 +11,12 @@ export interface Input {
     validate: () => void;
 }
 
-enum InputValidatityCssClassNames {
-    Pristine = 'is-pristine',
-    Dirty = 'is-dirty',
-    Valid = 'is-valid',
-    Invalid = 'is-invalid'
-}
+type validityCssClassNames = 'is-pristine' | 'is-dirty' | 'is-valid' | 'is-invalid';
+
+const cssClassPristine: validityCssClassNames = 'is-pristine';
+const cssClassDirty: validityCssClassNames = 'is-dirty';
+const cssClassValid: validityCssClassNames = 'is-valid';
+const cssClassInvalid: validityCssClassNames = 'is-invalid';
 
 export function inputManager(inputElement: HTMLInputElement, formaliseConfig: Config): Input {
     function isInputValid(): boolean {
@@ -29,25 +29,25 @@ export function inputManager(inputElement: HTMLInputElement, formaliseConfig: Co
 
     function setInputValidityStatus(element: HTMLElement = inputElement): void {
         if (isInputValid()) {
-            removeClass(element, InputValidatityCssClassNames.Invalid);
-            addClass(element, InputValidatityCssClassNames.Valid);
+            removeClass(element, cssClassInvalid);
+            addClass(element, cssClassValid);
         } else {
-            removeClass(element, InputValidatityCssClassNames.Valid);
-            addClass(element, InputValidatityCssClassNames.Invalid);
+            removeClass(element, cssClassValid);
+            addClass(element, cssClassInvalid);
         }
     }
 
     function setInputAsDirty(): void {
-        removeClass(inputElement, InputValidatityCssClassNames.Pristine);
-        addClass(inputElement, InputValidatityCssClassNames.Dirty);
+        removeClass(inputElement, cssClassPristine);
+        addClass(inputElement, cssClassDirty);
     }
 
     function setInputStatusClass(): void {
-        addClass(inputElement, InputValidatityCssClassNames.Pristine);
+        addClass(inputElement, cssClassPristine);
     }
 
     function validateInputStatus(): void {
-        if (hasClass(inputElement, InputValidatityCssClassNames.Pristine)) {
+        if (hasClass(inputElement, cssClassPristine)) {
             setInputAsDirty();
         }
 

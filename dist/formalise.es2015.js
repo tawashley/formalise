@@ -44,14 +44,10 @@ function getClosestElement(element, selector) {
   return null;
 }
 
-var InputValidatityCssClassNames;
-
-(function (InputValidatityCssClassNames) {
-  InputValidatityCssClassNames["Pristine"] = "is-pristine";
-  InputValidatityCssClassNames["Dirty"] = "is-dirty";
-  InputValidatityCssClassNames["Valid"] = "is-valid";
-  InputValidatityCssClassNames["Invalid"] = "is-invalid";
-})(InputValidatityCssClassNames || (InputValidatityCssClassNames = {}));
+var cssClassPristine = 'is-pristine';
+var cssClassDirty = 'is-dirty';
+var cssClassValid = 'is-valid';
+var cssClassInvalid = 'is-invalid';
 
 function inputManager(inputElement, formaliseConfig) {
   function isInputValid() {
@@ -68,25 +64,25 @@ function inputManager(inputElement, formaliseConfig) {
     }
 
     if (isInputValid()) {
-      removeClass(element, InputValidatityCssClassNames.Invalid);
-      addClass(element, InputValidatityCssClassNames.Valid);
+      removeClass(element, cssClassInvalid);
+      addClass(element, cssClassValid);
     } else {
-      removeClass(element, InputValidatityCssClassNames.Valid);
-      addClass(element, InputValidatityCssClassNames.Invalid);
+      removeClass(element, cssClassValid);
+      addClass(element, cssClassInvalid);
     }
   }
 
   function setInputAsDirty() {
-    removeClass(inputElement, InputValidatityCssClassNames.Pristine);
-    addClass(inputElement, InputValidatityCssClassNames.Dirty);
+    removeClass(inputElement, cssClassPristine);
+    addClass(inputElement, cssClassDirty);
   }
 
   function setInputStatusClass() {
-    addClass(inputElement, InputValidatityCssClassNames.Pristine);
+    addClass(inputElement, cssClassPristine);
   }
 
   function validateInputStatus() {
-    if (hasClass(inputElement, InputValidatityCssClassNames.Pristine)) {
+    if (hasClass(inputElement, cssClassPristine)) {
       setInputAsDirty();
     }
 
